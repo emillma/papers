@@ -1,0 +1,51 @@
+\makeglossaries
+
+\setabbreviationstyle[acronym]{long-postshort-user}
+\glssetcategoryattribute{acronym}{nohyperfirst}{true}
+\setabbreviationstyle{short-nolong}
+
+
+% --------------------
+% ---- Glossaries ----
+% --------------------
+\newglossaryentry{asyncio}{name=Asyncio, description={A Python library for asynchronous code.}}
+
+\newglossaryentry{hello}{name=Hi, description={Just at small test.}}
+
+% --------------------
+% ----- Acronyms -----
+% --------------------
+\newacronym{nvs}{NVS}{Novel View Synthesis}
+\newacronym{mlp}{MLP}{Multi-Layer Perceptron}
+\newacronym{nerf}{NeRF}{Neural Radiance Field}
+\newacronym{rt}{RT}{Ray Tracing}
+\newacronym{bvh}{BVH}{Bounding Volume Hierarchy}
+\newacronym{mpl}{MPL}{Multi-Layer Perceptron}
+
+\glsaddall
+\makeglossaries
+
+% \glsunset{cpu}
+% \glsunset{gpu}
+% \glsunset{lla}
+
+% --------------------
+% ----- Shortcuts ----
+% --------------------
+\newcommand{\nvidia}{NVIDIA\xspace}
+\newcommand{\jetson}{\gls{jetson}\xspace}
+\newcommand{\sr}{Sensor Rig\xspace}
+\newcommand{\jx}{Xavier\xspace}
+\newcommand{\jo}{Orin\xspace}
+\newcommand{\gs}{Gstreamer\xspace}
+\newcommand{\cam}{Triton Polarizin Camera\xspace}
+\newcommand{\cams}{Triton Polarizin Cameras\xspace}
+\newcommand{\lucid}{Lucid Vision\xspace}
+\newcommand{\preproject}{Pre-Project\xspace}
+\newcommand{\master}{Master's\xspace}
+\newcommand{\py}{Python\xspace}
+\newcommand{\cpu}{\gls{gpu}\xspace}
+\newcommand{\gpu}{\gls{cpu}\xspace}
+\newcommand{\gui}{GUI\xspace}
+\newcommand{\guif}{\gls{gui} framework\xspace}
+\newcommand{\srgui}{\sr \gls{gui}\xspace}

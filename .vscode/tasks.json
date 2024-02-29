@@ -1,0 +1,34 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "remove zone identifier",
+            "type": "shell",
+            "command": "find . -name *:Zone.Identifier | xargs rm",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ""
+        },
+        {
+            "label": "split lines",
+            "type": "shell",
+            "command": "python3 ${workspaceFolder}/.vscode/scripts/split_lines.py ${file}",
+            "problemMatcher": ""
+        },
+        {
+            "label": "latex_hierarchy_up",
+            "type": "shell",
+            "command": "python3 ${workspaceFolder}/.vscode/scripts/latex_hierarchy.py ${file} up",
+            "problemMatcher": ""
+        },
+        {
+            "label": "latex_hierarchy_down",
+            "type": "shell",
+            "command": "python3 ${workspaceFolder}/.vscode/scripts/latex_hierarchy.py ${file} down",
+            "problemMatcher": ""
+        }
+    ],
+}

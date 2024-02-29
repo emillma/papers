@@ -1,0 +1,44 @@
+\begin{abstract}
+    The introduction of Gaussian Splatting has disrupted the field \gls{nvs} \cite{kerbl3DGaussianSplatting2023}. This technology has gained rapid adoption and further development in academia, and it has also been successfully leveraged in the industry, showcasing its immense potential \cite{LumaAIVideo}.
+
+    This report aims to provide an accessible overview of the paper that introduced Gaussian Splatting and discuss its implications \cite{kerbl3DGaussianSplatting2023}.
+    Additionally, we will look at certain areas where we believe the paper could have been improved.
+    Finally, we will explore a hypothetical new method for \gls{nvs}, inspired by Gaussian Splatting, where we leverage the power of modern hardware-accelerated ray tracing.
+\end{abstract}
+
+\section{Introduction}
+\gls{nvs} is a computer vision problem where the goal is to represent a scene in a way such that given a new \text{view}, an accurate image can be generated.
+Here we define a \textit{view} as the position and orientation of a camera in the scene together with the camera's intrinsic parameters.
+
+Current state-of-the-art methods vary in how they represent the scene and generate images
+but share the same general problem formulation;
+Given a set of training images $\bm{I}_i$,
+taken from different views $\bm{V}_i$,
+the goal is to find a representation of the scene $\bm{S}$,
+together with a image generating, i.e. rendering, function $\bm{\hat{I}}_i = g(\bm{S}, \bm{V}_i)$,
+such that some cost function $\mathcal{L}(\bm{I}_i, \bm{\hat{I}}_i)$,
+is minimized over all training images.
+
+To evaluate the performance of a method, a collection of test images $\bm{I}_j$ together with their corresponding views $\bm{V}_j$ is used to evaluate the method's ability to generalize to unseen data.
+Beyond a method's ability to accurately generate images from novel views, other important metrics should be considered.
+This includes the time it takes to generate an image, the memory required to store the scene representation, the time it takes to train the model, the amount of training data required and the amount of memory required during training.
+
+
+
+\subsection{Related Works}
+\gls{nvs} is a well-studied problem in computer vision, and many different approaches have been proposed.
+Older methods achieved decent image interpolation by estimating the depth of the scene to correctly warp and blend adjacent images \cite{zitnickHighqualityVideoView2004}.
+
+A big leap in performance was achieved with the introduction of \gls{nerf} methods, where a continuous representation of the scene is built by optimizing a neural network to predict the color and opacity at any point in the scene given a direction \cite{mildenhallNeRFRepresentingScenes2020a}.
+A severe limitation of this approach however is the amount of time it takes to train the model, partially because a lot of resources are wasted on rendering transparent or occluded parts of the scene, as the whole volume is sampled.
+
+Plenoxels dropped the costly neural network and instead represented the scene using a sparse voxel grid \cite{yuPlenoxelsRadianceFields2021a}.
+Point sampling is still used but is now calculated by blending the values stored in the vertices of the voxel grid, resulting in a significant speedup. Spherical harmonics are used to represent the view-dependent color of each voxel \cite{yuPlenoxelsRadianceFields2021a}.
+
+Related to this, Instant Neural Graphics introduced using multiple voxel grids at different levels of detail and a multi-level hash table to look up the closest vertices \cite{mullerInstantNeuralGraphics2022}.
+They also optimized two \glspl{mpl} together with the vertex values to give the opacity and color of each voxel \cite{mullerInstantNeuralGraphics2022}.
+
+None of the previous methods are very similar to Gaussian Splatting but are still relevant as they are the current state-of-the-art methods for \gls{nvs}.
+
+
+

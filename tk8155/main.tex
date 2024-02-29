@@ -1,0 +1,26 @@
+\documentclass{myformat}
+\addbibresource{mylib.bib}
+
+
+\input{chapters/glossary.tex}
+
+\begin{document}
+
+
+\title{Gaussian Splatting \\ A Significant Development in Novel View Synthesis}
+
+\author{Emil Martens}
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}{}
+\maketitle
+
+\input{chapters/intro.tex}
+\input{chapters/summary.tex}
+\input{chapters/critique.tex}
+\input{chapters/raytracing.tex}
+\input{chapters/conclusion.tex}
+
+\printglossary[type=\acronymtype]
+% \printglossaries
+\printbibliography
+
+\end{document}

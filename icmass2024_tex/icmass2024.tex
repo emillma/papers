@@ -1,5 +1,11 @@
 \documentclass{iopconfser}
 
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[automake]{glossaries-extra}
+
+\input{glossary.tex}
 \begin{document}
 
 \title{Replace this text with the article title}
@@ -13,7 +19,12 @@
 
 \begin{abstract}
 
-    Development of new methods within the domain of #glspl("asv") depends on high quality datasets. 
+    To improve the situational awareness of \glspl{asv}, relevant and high-quality data is needed.
+    This article presents a newly developed stand-alone sensor platform designed to make data collection in maritime environments more efficient.
+    
+    
+    
+    Development of new methods within the domain of \glspl{asv} depends on high-quality datasets. 
     Research vessels such as MilliAmpere 2 can be used for data collection, but this generally requires the involvement of multiple people and a significant amount of time. 
     Testing new types of sensors can also be challenging as they must be integrated with the existing vessel.
     
@@ -34,18 +45,24 @@
     
 \end{abstract}
 
-% \section{Example section heading}
-% Article text starts here. 
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{figures/operation.jpg}
+    \caption{Operation of the sensor rig}
+\end{figure}
 
-% Organise your text using section headings and include any equations, figures, tables, lists etc using your preferred LaTeX packages and commands.
 
-% \subsection{Example subsection heading}
-
+\begin{figure}[H]
+    % \centering
+    \subcaptionbox{"Regular" image.}{
+        \includegraphics[width=0.48\textwidth]{figures/regular_right_96.jpeg}
+    }
+    \hfill
+    \subcaptionbox{\glsentrylong{aolp} and \glsentrylong{dolp} visualized as hue and value.}{
+        \includegraphics[width=0.48\textwidth]{figures/aolp_right_96.jpeg}
+    }
+    \caption{Illustration of how polarization cameras make the water surface visible.}
+    \label{fig:polarization_visualization}
+\end{figure}
 
 
 \end{document}
-
-
-
-
-

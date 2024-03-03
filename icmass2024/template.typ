@@ -3,34 +3,28 @@
 #let ieee(
   // The paper's title.
   title: "Paper Title",
-
   // An array of authors. For each author you can specify a name,
   // department, organization, location, and email. Everything but
   // but the name is optional.
   authors: (),
-
   // The paper's abstract. Can be omitted if you don't have one.
   abstract: none,
-
   // A list of index terms to display after the abstract.
   index-terms: (),
-
   // The article's paper size. Also affects the margins.
   paper-size: "us-letter",
-
   // The path to a bibliography file if you want to cite some external
   // works.
   bibliography-file: none,
-
   // The paper's content.
-  body
+  body,
 ) = {
   // Set document metdata.
   set document(title: title, author: authors.map(author => author.name))
-
+  
   // Set the body font.
   set text(font: "Times New Roman", size: 10pt)
-
+  
   // Configure the page.
   set page(
     paper: paper-size,
@@ -43,17 +37,17 @@
         top: (55pt / 279mm) * 100%,
         bottom: (64pt / 279mm) * 100%,
       )
-    }
+    },
   )
-
+  
   // Configure equation numbering and spacing.
   set math.equation(numbering: "(1)")
   show math.equation: set block(spacing: 0.65em)
-
+  
   // Configure lists.
   set enum(indent: 10pt, body-indent: 9pt)
   set list(indent: 10pt, body-indent: 9pt)
-
+  
   // Configure headings.
   set heading(numbering: "I.A.1.")
   show heading: it => locate(loc => {
@@ -64,7 +58,7 @@
     } else {
       1
     }
-
+    
     set text(10pt, weight: 400)
     if it.level == 1 [
       // First-level headings are centered smallcaps.
@@ -100,12 +94,12 @@
       _#(it.body):_
     ]
   })
-
+  
   // Display the paper's title.
   v(3pt, weak: true)
   align(center, text(26pt, title))
   v(8.35mm, weak: true)
-
+  
   // Display the authors list.
   for i in range(calc.ceil(authors.len() / 3)) {
     let end = calc.min((i + 1) * 3, authors.len())
@@ -128,34 +122,34 @@
         if "email" in author [
           \ #link("mailto:" + author.email)
         ]
-      }))
+      })),
     )
-
+    
     if not is-last {
       v(16pt, weak: true)
     }
   }
   v(40pt, weak: true)
-
+  
   // Start two column mode and configure paragraph properties.
   show: columns.with(2, gutter: 12pt)
   set par(justify: true, first-line-indent: 1em)
   show par: set block(spacing: 0.65em)
-
+  
   // Display abstract and index terms.
   if abstract != none [
     #set text(weight: 700)
     #h(1em) _Abstract_---#abstract
-
+    
     #if index-terms != () [
       #h(1em)_Index terms_---#index-terms.join(", ")
     ]
     #v(2pt)
   ]
-
+  
   // Display the paper's contents.
   body
-
+  
   // Display bibliography.
   if bibliography-file != none {
     show bibliography: set text(8pt)

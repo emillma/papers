@@ -1,0 +1,178 @@
+\section{Compilation script}
+\begin{minted}[fontsize=\tiny]{python}
+    import subprocess
+    from pathlib import Path
+    import shutil
+    import os
+    from concurrent.futures import ThreadPoolExecutor, wait
+    import requests
+    
+    password = input("Enter sudo password: ")
+    
+    
+    def run(cmd: str, cwd=None):
+        p = subprocess.run(cmd, cwd=cwd, env=env, shell=True, check=True)
+        assert not p.returncode
+    
+    
+    def run_sudo(cmd: str, cwd=None):
+        p = subprocess.run(
+            f"echo {password} | sudo -S {cmd}", cwd=cwd, env=env, shell=True, check=True
+        )
+        assert not p.returncode
+        return p
+    
+    
+    filedir = Path(__file__).parent
+    dirs = [
+        work_dir := filedir / "work",
+        download_dir := filedir / "download",
+        compiler_dir := work_dir / "l4t-gcc",
+        l4t_dir := work_dir / "Linux_for_Tegra",
+        public_dir := l4t_dir / "source/public",
+        kernel_dir := l4t_dir / "source/public/kernel/kernel-5.10",
+        rootfs_dir := l4t_dir / "rootfs",
+        kernel_out := l4t_dir / "images",
+        modules_out_dir := kernel_out / "modules",
+        # sources_dir := l4t_dir / "sources",
+    ]
+    for d in dirs:
+        d.mkdir(parents=True, exist_ok=True)
+    
+    
+    cross_comp = compiler_dir / "bin/aarch64-buildroot-linux-gnu-"
+    default_user_script = filedir / "l4t_create_default_user.sh"
+    
+    config = kernel_out / ".config"
+    defconfig = kernel_dir / "arch/arm64/configs/defconfig"
+    dtsi = (
+        public_dir
+        / "hardware/nvidia/soc/t19x/kernel-dts/tegra194-soc/tegra194-soc-base.dtsi"
+    )
+    pps_gpio_c = kernel_dir / "drivers/pps/clients/pps-gpio.c"
+    
+    env = os.environ.copy()
+    env.update(
+        {
+            "CROSS_COMPILE": str(cross_comp),
+            "LOCALVERSION": "-tegra",
+            "TEGRA_KERNEL_OUT": str(kernel_out),
+        }
+    )
+    
+    
+    def download(url: str, name: str):
+        tmp_file = download_dir / f"tmp_{name}"
+        if not (out_file := download_dir / name).exists():
+            with requests.get(url, stream=True) as r, open(tmp_file, "wb") as f:
+                shutil.copyfileobj(r.raw, f)
+            shutil.move(tmp_file, out_file)
+        return out_file
+    
+    
+    common = "https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v3.1"
+    def get_bsp():
+        url = f"{common}/release/jetson_linux_r35.3.1_aarch64.tbz2/"
+        file = download(url, Path(url).name)
+        run_sudo(f"tar -xjf {file} -C {work_dir}")
+    
+    def get_rootfs():
+        url = f"{common}/release/tegra_linux_sample-root-filesystem_r35.3.1_aarch64.tbz2/"
+        file = download(url, Path(url).name)
+        run_sudo(f"tar -xjf {file} -C {rootfs_dir}")
+    
+    def get_bsp_sources():
+        url = f"{common}/sources/public_sources.tbz2/"
+        file = download(url, Path(url).name)
+        run(f"tar -xjf {file}", work_dir)
+        run("tar -xjf kernel_src.tbz2", l4t_dir / "source/public")
+    
+    def get_compiler():
+        url = "https://developer.nvidia.com/embedded/jetson-linux/bootlin-toolchain-gcc-93"
+        file = download(url, Path(url).name)
+        run(f"tar -xf {file} -C {compiler_dir}")
+
+    skipto = 0
+    
+    if skipto <= 0:
+        futures = []
+        with ThreadPoolExecutor() as executor:
+            futures.append(executor.submit(get_bsp))
+            futures.append(executor.submit(get_bsp_sources))
+            futures.append(executor.submit(get_rootfs))
+            futures.append(executor.submit(get_compiler))
+            a, b = wait(futures)
+
+    if skipto <= 1:
+        for file in [pps_gpio_c, dtsi, defconfig]:
+            shutil.copy(filedir / file.name, file)
+
+    if skipto <=2:
+        run("make mrproper", kernel_dir)
+        kwargs = dict(
+            ARCH="arm64",
+            O=kernel_out,
+            CROSS_COMPILE=cross_comp,
+            KERNEL_OUT=kernel_out,
+            LOCALVERSION="-tegra",
+            INSTALL_MOD_PATH=str(kernel_out / "modules"),
+        )
+    
+        common = f"make {' '.join(f'{k}={v}' for k, v in kwargs.items())} -j$(nproc)"
+        run(f"{common} tegra_defconfig", kernel_dir)
+        run(f"{common} Image", kernel_dir)
+        run(f"{common} dtbs", kernel_dir)
+        run(f"{common} modules", kernel_dir)
+        run(f"{common} modules_install", kernel_dir)
+
+    if skipto <=3:
+        run_sudo(f"cp {kernel_out / 'arch/arm64/boot/Image'} {l4t_dir / 'kernel/'}")
+        src = kernel_out / "arch/arm64/boot/dts/nvidia"
+        dst = l4t_dir / "kernel/dtb"
+        run_sudo(f"cp -a {src}/. {dst}")
+    
+    
+    if skipto <=4:
+        dst = l4t_dir / "kernel/kernel_supplements.tbz2"
+        src = l4t_dir / "images/modules/lib/modules"
+        dst.unlink(missing_ok=True)
+        run_sudo(f"tar --owner root --group root -cjf {dst} {src}")
+        run_sudo("/bin/bash apply_binaries.sh", l4t_dir)
+        
+    if skipto <=5:
+        out = next((rootfs_dir).rglob("usr/lib/modules/*/kernel/drivers/gpu/nvgpu"))
+        run_sudo(f"cp {kernel_out/'drivers/gpu/nvgpu/nvgpu.ko'} {out}")
+        
+        run_sudo(f"cp {default_user_script} {l4t_dir / default_user_script.name}")
+        run_sudo(f"/bin/bash {l4t_dir / default_user_script.name} -p nvidia", l4t_dir)
+
+    if skipto <=6:
+        run_sudo("/bin/bash flash.sh jetson-agx-xavier-devkit mmcblk0p1", l4t_dir)
+
+    if skipto <=7:
+        file = l4t_dir / "tools/kernel_flash/l4t_initrd_flash.sh"
+        layout = filedir / "flash_l4t_nvme.xml"
+        size_gp = 520
+        size_bytes = ((size_gp - 20) * 10**9 + 4096 - 1) // 4096 * 4096
+        cmd = (
+            f"/bin/bash {file} -c {layout}"
+            " --external-device nvme0n1 --showlogs"
+            " --no-flash"
+            " --external-only"
+            f" -S {size_bytes}"
+            " jetson-agx-xavier-devkit nvme0n1p1"
+        )
+        run_sudo(cmd, l4t_dir)
+
+    if skipto <=8:
+        input("Put xavier into recovery mode and press enter")
+        cmd = (
+            f"/bin/bash {file} -c {layout}"
+            " --external-device nvme0n1 --showlogs"
+            " --flash-only"
+            " --external-only"
+            f" -S {size_bytes}"
+            " jetson-agx-xavier-devkit nvme0n1p1"
+        )
+        run_sudo(cmd, l4t_dir)
+\end{minted}

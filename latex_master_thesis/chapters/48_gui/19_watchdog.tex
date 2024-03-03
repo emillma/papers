@@ -1,0 +1,33 @@
+\subsection{Watchdog}
+To make the development process faster a custom watchdog was developed.
+In this context a watchdog is a small \gls{js} script running in the browser that automatically reloads the page when server restarts.
+The custom watchdog pings the server every five seconds, and the server replies with a pong with a hash of its start-time.
+If the pong value changes the watchdog reloads the page, if no response is received the watchdog tries again every two second.
+
+\gls{dash} has a built in watchdog from \gls{flask}, but it does not appear wait until the new server is ready before reloading the page, resulting in dangling connections.
+It also reloads the page whenever the server does no responds for to long, which happens whenever the debugger waits at a breakpoint.
+This is not the case with the custom watchdog as it will receive the same hash value as long as the server is running, even if the server is waiting at a breakpoint.
+\gls{dash} also has the ability to reload pages whenever changes are made to the source code, but this is also turned off as it made development slower.
+
+
+\begin{listing}[H]
+    \begin{minted}{js}
+    async function watchdog() {
+        try {
+            const response = await fetchWithTimeout('/hartbeat', 2000);
+            const text = await response.text();
+            if (hash && hash !== text) {location.reload();
+            } else { hash = text;}
+            setTimeout(watchdog, 5000);
+        } catch (error) {
+            console.log('could not fetch resource')
+            watchdog();
+        }
+    }
+    \end{minted}
+\end{listing}
+
+\subsection{Automated Startup in Docker}
+The \gls{gui} is hosted in a Docker container on the \sr.
+Using \gls{chrontab} the \sr can be configured to automatically start the Docker container on boot, removing the need for any manual startup.
+As this can be a nuisance when developing, a shell script was written to easily start the container from JuiceSSH.

@@ -1,0 +1,37 @@
+\section{Triton Polarization Camera}
+The \sr is equipped with two Triton 5.0 MP Polarization cameras that use the IMX264MYR \gls{cpfa} sensor from Sony.
+The \cams are configured by setting the value of \code{nodes} in four different \code{nodemaps}, presented in Table \ref{tab:nodemaps} \cite{lucidvisionlabsTritonMPPolarized2020}.
+
+A lot of time was spent trying out different parameters.
+This was initially a tedious process as it had to be done using strings.
+I extended the API by creating a wrapper around each \code{nodemap} to make this process faster.
+The wrapper defines each node as a \py class, making it easy to set and read each node's values as all the possible values are defined in the class.
+This was done by systematically querying the nodemaps for all their available nodes, parsing the descriptions values, and generating \py classes using \gls{jinja} templating.
+
+\begin{minted}{python}
+    nodemap["PixelFormat"] = "BayerRG10p" # Default
+    wrapped_nodemap.PixelFormat.set_BayerRG10p() # Wrapper
+\end{minted}
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|c|l|}
+        \hline
+        \textbf{Nodemap} & \textbf{\# of nodes} & \textbf{Description}                    \\
+        \hline
+        \code{device}    & 417                  & Camera parameters i.e. sutter speed.    \\
+        \code{interface} & 22                   & Network parameters, i.e. network masks  \\
+        \code{stream}    & 24                   & Stream params, i.e. resend policy       \\
+        \code{system}    & 36                   & System parameters, i.e. thread priority \\
+        \hline
+    \end{tabular}
+    \caption{Number of nodes in each nodemap.}
+    \label{tab:nodemaps}
+\end{table}
+
+
+
+\subsection{Bugs in the firmware and documentation}
+In certain instances, the \gls{api} would correctly throw errors if an incorrect value was set or if a value couldn't be temporarily written, such as attempting to set the gain while it was in automatic mode. However, there were cases where the \gls{api} didn't provide any warnings or errors, yet the value wasn't successfully set. This led to confusion, especially while configuring the trigger source, as it would be ignored if the \cam was already in trigger mode.
+
+Additionally, there are certain mistakes in the documentation provided by Lucid. One such mistake is the claim that the cameras support the use of \gls{lut}. However, after conducting a thorough search and receiving confirmation via email, it was established that \gls{lut} is unfortunately not supported by the cameras \cite{fischerRe15406LUT2022} \cite{lucidvisionlabsTritonMPPolarized2020}.

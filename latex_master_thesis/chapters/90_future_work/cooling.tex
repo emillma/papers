@@ -1,0 +1,10 @@
+\section{Cooling}
+Section 8.5 of the \preproject discussed concerns regarding potential overheating of the \sr due to inadequate heat dissipation through the enclosure walls.
+To address this potential issue, a liquid cooling block was procured from Connect Tech Inc., and preliminary sketches were created to explore its potential installation within the \sr, in case it became necessary.
+
+However, after analyzing the data provided by the \textit{jtop} tab, presented in Section \ref{sec:gui_jtop}, during a longer operation, it was determined that the current cooling solution proved to be sufficient for operational requirements as the of the \gls{cpu} and \gls{gpu} remained below $65^{\circ}C$.
+If the inside of the enclosure reaches this temperature, it might however damage the lifetime of the battery.
+It should also be noted that under extreme conditions such as prolonged exposure to direct daylight on a hot summer day, the current cooling capacity might be insufficient.
+
+A small temporary safety measure that is planned as a par of  the new \gls{navbox} interface is to publish the temperature from the \gls{pico}, which should be close to the temperature inside the box \cite[71]{PicoSDK}.
+This will then be used to warn the user if the temperature is too high and shut down the system if it reaches a critical level for the battery.

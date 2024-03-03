@@ -1,0 +1,154 @@
+\section{Cura configurations}
+\label{sec:cura_configurations}
+Following is the complete set of parameters that were modified from their default values in Cura to achaive the desired print quality.
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \begin{tabular}{ |l|r| }
+        \hline
+        \textbf{Parameter}               & \textbf{Value} \\
+        \hline
+        adhesion\_extruder\_nr           & 1              \\
+        adhesion\_type                   & brim           \\
+        bridge\_settings\_enabled        & False          \\
+        jerk\_enabled                    & False          \\
+        layer\_height                    & 0.16           \\
+        layer\_height\_0                 & 0.3            \\
+        material\_bed\_temperature       & 70             \\
+        material\_shrinkage\_percentage  & 100            \\
+        prime\_tower\_brim\_enable       & False          \\
+        prime\_tower\_enable             & True           \\
+        prime\_tower\_position\_x        & 220            \\
+        prime\_tower\_size               & 20             \\
+        support\_enable                  & True           \\
+        support\_extruder\_nr            & 1              \\
+        support\_interface\_extruder\_nr & 1              \\
+        support\_type                    & buildplate     \\
+        \hline
+    \end{tabular}
+    \caption{General configurations.}
+\end{table}
+\pagebreak
+\begin{multicols}{2}
+    \begin{table}[H]
+        \scriptsize
+        \begin{tabular}{ |l|r| }
+            \hline
+            \textbf{Parameter}                    & \textbf{Value} \\
+            \hline
+            acceleration\_print                   & 8000           \\
+            acceleration\_roofing                 & 8000.0         \\
+            acceleration\_topbottom               & 8000.0         \\
+            acceleration\_travel                  & 8000.0         \\
+            acceleration\_wall\_0                 & 8000.0         \\
+            acceleration\_wall\_x                 & 8000.0         \\
+            bottom\_layers                        & 5              \\
+            bridge\_skin\_speed                   & 35.0           \\
+            bridge\_wall\_speed                   & 35             \\
+            brim\_gap                             & 0.4            \\
+            brim\_line\_count                     & 10             \\
+            cool\_fan\_speed                      & 60             \\
+            cool\_min\_layer\_time                & 3              \\
+            hole\_xy\_offset                      & 0.2            \\
+            infill\_enable\_travel\_optimization  & True           \\
+            infill\_pattern                       & trihex-        \\
+                                                  & agon           \\
+            infill\_sparse\_density               & 20             \\
+            initial\_layer\_line\_width\_factor   & 120            \\
+            jerk\_print                           & 30.0           \\
+            material\_final\_print\_temperature   & 240.0          \\
+            material\_flow\_layer\_0              & 75             \\
+            material\_initial\_print\_temperature & 240.0          \\
+            material\_standby\_temperature        & 240.0          \\
+            prime\_tower\_min\_volume             & 5              \\
+            retraction\_hop                       & 1.5            \\
+            roofing\_layer\_count                 & 1              \\
+            roofing\_monotonic                    & False          \\
+            roofing\_pattern                      & lines          \\
+            skin\_overlap                         & 10             \\
+            speed\_infill                         & 70             \\
+            speed\_layer\_0                       & 20             \\
+            speed\_prime\_tower                   & 70.0           \\
+            speed\_roofing                        & 70.0           \\
+            speed\_topbottom                      & 70.0           \\
+            speed\_wall\_0                        & 70.0           \\
+            speed\_wall\_x                        & 70.0           \\
+            support\_fan\_enable                  & False          \\
+            support\_supported\_skin\_fan\_speed  & 60             \\
+            support\_tree\_limit\_branch\_reach   & False          \\
+            support\_xy\_distance\_overhang       & 0.4            \\
+            switch\_extruder\_retraction\_amount  & 3              \\
+            switch\_extruder\_retraction\_speed   & 40.0           \\
+            switch\_extruder\_retraction\_speeds  & 40             \\
+            top\_bottom\_pattern                  & lines          \\
+            top\_bottom\_pattern\_0               & lines          \\
+            top\_layers                           & 5              \\
+            wall\_line\_count                     & 4              \\
+            wall\_line\_width\_0                  & 0.42           \\
+            xy\_offset                            & -0.05          \\
+            xy\_offset\_layer\_0                  & -0.05          \\
+            z\_seam\_x                            & 0              \\
+            z\_seam\_y                            & 0              \\
+            zig\_zaggify\_infill                  & True           \\
+            \hline
+        \end{tabular}
+        \caption{Configurations of left extruder.}
+    \end{table}
+    \columnbreak
+    \begin{table}[H]
+        \scriptsize
+        \centering
+        \begin{tabular}{|l|r|}
+            \hline
+            \textbf{Parameter}                    & \textbf{Value} \\
+            \hline
+            acceleration\_topbottom               & 6000.0         \\
+            acceleration\_wall\_0                 & 6000.0         \\
+            acceleration\_wall\_x                 & 6000.0         \\
+            brim\_line\_count                     & 8              \\
+            initial\_layer\_line\_width\_factor   & 120            \\
+            jerk\_print                           & 30.0           \\
+            material\_final\_print\_temperature   & 215.0          \\
+            material\_flow\_layer\_0              & 70             \\
+            material\_initial\_print\_temperature & 215.0          \\
+            material\_print\_temperature          & 215            \\
+            material\_standby\_temperature        & 215.0          \\
+            minimum\_bottom\_area                 & 1              \\
+            minimum\_roof\_area                   & 0              \\
+            minimum\_support\_area                & 10             \\
+            prime\_tower\_min\_volume             & 6              \\
+            skin\_monotonic                       & True           \\
+            skirt\_brim\_speed                    & 20.0           \\
+            speed\_infill                         & 70             \\
+            speed\_layer\_0                       & 20.0           \\
+            speed\_prime\_tower                   & 70.0           \\
+            speed\_support                        & 70.0           \\
+            speed\_topbottom                      & 70.0           \\
+            speed\_wall\_0                        & 70.0           \\
+            speed\_wall\_x                        & 70.0           \\
+            support\_angle                        & 45             \\
+            support\_bottom\_enable               & False          \\
+            support\_interface\_density           & 100            \\
+            support\_interface\_enable            & False          \\
+            support\_interface\_offset            & 0              \\
+            support\_offset                       & 1              \\
+            support\_roof\_height                 & 0.5            \\
+            support\_top\_distance                & 0              \\
+            support\_tree\_angle\_slow            & 20             \\
+            support\_tree\_top\_rate              & 35             \\
+            support\_wall\_count                  & 2              \\
+            support\_xy\_distance                 & 0.2            \\
+            support\_xy\_distance\_overhang       & 0.1            \\
+            support\_z\_distance                  & 0.1            \\
+            switch\_extruder\_retraction\_amount  & 3              \\
+            switch\_extruder\_retraction\_speed   & 40.0           \\
+            switch\_extruder\_retraction\_speeds  & 40             \\
+            top\_bottom\_pattern\_0               & con-           \\
+                                                  & centric        \\
+            xy\_offset\_layer\_0                  & -0.1           \\
+            zig\_zaggify\_infill                  & True           \\
+            \hline
+        \end{tabular}
+        \caption{Configurations of right extruder.}
+    \end{table}
+\end{multicols}

@@ -1,0 +1,62 @@
+\section {Unpacking Data from the Camera}
+\subsection{Bit Pattern}
+\label{sec:unpacking}
+The first step in the transformation process is to unpack the raw data from the camera.
+The \lucid cameras feature a 12-bit \gls{adc} and offer 23 different output formats with varying bit depths and packing.
+As the \gls{h265} encoder supports 10-bit data, the \code{Mono10p} output format was chosen for the cameras \cite[17 ]{nvidiaNVIDIAJetsonAGX2019}.
+This format densely packs the 10-bit data, as depicted in Figure \ref{fig:mono10p}, maximizing the network throughput.
+
+\begin{figure}[H]
+    \centering
+    \subcaptionbox{Pixel data.}{\includegraphics[width=\textwidth]{figures/unpacking/layout_10p.pdf}}
+    \subcaptionbox{Bytes sent over ethernet.}{\includegraphics[width=\textwidth]{figures/unpacking/layout_10p_sent.pdf}}
+    \caption{Bit layout of the \code{Mono10p} format.}
+    \label{fig:mono10p}
+\end{figure}
+
+I encountered difficulties in locating documentation regarding the bit ordering on Lucid's website.
+As a workaround, I relied on two test images provided by the \cam.
+These test images contained pixel values that increased monotonically, as depicted in Figure \ref{fig:test_pattern}.
+By analyzing the data in the first line in these images, I was able to deduce the bit ordering.
+Regrettably, I later discovered that Lucid Vision does provide separate documentation on pixel formats; however, it did not appear in their own search engine for unknown reasons \cite{lucidvisionlabsPixelFormatsLUCID2020}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/unpacking/test_pattern0.jpg}
+    \includegraphics[width=0.4\textwidth]{figures/unpacking/test_pattern2.jpg}
+    \caption{Two test images used to infer the bit ordering.
+        The \cam can output several different test patterns useful for various testing purposes \cite{lucidvisionlabsTritonMPPolarized2020}.}
+    \label{fig:test_pattern}
+\end{figure}
+
+
+\subsection{Bit Unpacking}
+The pattern in Figure \ref{fig:mono10p} was identified as representing a little endian unsigned integer.
+By reordering the bytes visually the bit pattern in Figure \ref{fig:mono10p} becomes more intuitive, as shown in Figure \ref{fig:mono10p_reordered}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/unpacking/layout_10p_be.pdf}
+    \caption{More intuitive visualization of the bit ordering in Figure \ref{fig:test_pattern}.}
+    \label{fig:mono10p_reordered}
+\end{figure}
+
+As the\gls{cuda} GPU architecture uses little-endian representation, this is beneficial as we can interpret the incoming bits as a sequence of word-sized (32-bit) unsigned integers directly \cite[127]{nvidiaCUDAProgrammingGuide}.
+The first three pixel values are then read as from the 30 least significant bits of the first word, the fourth pixel value is read from the most significant bits of the first word and the least eight significant bits of the second word, and so on.
+This can be extracted using bit manipulation as shown in Listing \ref{lst:unpacking_half2}.
+To get proper byte alignment, each thread unpacks five words (160 bits) corresponding to 16 pixel values.
+
+\begin{listing}
+    \begin{minted}{cuda}
+        word_a = data[idx]; //copy from global memory
+        word_b = data[idx+1]; //copy from global memory
+        data[0] = __halves2half2(word_a & 0b1111111111,
+                                 word_a >> 10 & 0b1111111111);
+        data[1] = __halves2half2(word_a >> 20 & 0b1111111111;
+                                 word_a >> 30 & 0b11 | (word_b & 0b11111111) << 2);
+        data[2] = __halves2half2(word_b >> 8 & 0b1111111111,
+                                 word_b >> 18 & 0b1111111111);
+    \end{minted}
+    \caption{How the first six pixel values are unpacked and cast to \gls{half2}. Section \ref{sec:half2} explains the use of \gls{half2} data type.}
+    \label{lst:unpacking_half2}
+\end{listing}

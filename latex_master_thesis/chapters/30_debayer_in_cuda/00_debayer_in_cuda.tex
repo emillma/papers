@@ -1,0 +1,11 @@
+\chapter{Efficient Preprocessing of Raw Image Data in CUDA}
+\label{chap:debayer}
+
+To compress the video frames from the cameras, it is necessary to first transform the data into a format that is compatible with the encoder.
+This involves debayering the data to extract color information, converting the extracted color into a different color space, and packaging the data in a specific format.
+Since the cameras utilize a specialized image sensor, a custom preprocessor was developed to perform these operations.
+The preprocessor takes the raw bytes from the cameras as input and generates bytes that can be directly sent to the H.265 encoder.
+In order to achieve the required throughput and limit power consumption, the preprocessor is implemented using\gls{cuda}.
+
+This chapter provides an overview of the theory behind debayering and color spaces and presents the optimized\gls{cuda} implementation.
+

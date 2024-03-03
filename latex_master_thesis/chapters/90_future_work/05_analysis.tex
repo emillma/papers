@@ -1,0 +1,7 @@
+\section{Better Analysation Tools}
+\label{sec:better_analysation_tools}
+The current visualization of the \gls{aolp} and \gls{dolp} is quite naive and does not take the image gradient into account as discussed in Section \ref{sec:artifical_polarization}.
+The scope of this \master was limited to enabling the collection of data making analysation tools part of future work.
+
+An envisioned approach is to use neighbouring pixels to get a spacially aware estimation of \gls{dolp} and \gls{aolp} by compensating for the local gradient.
+Because of the dithering effect seen in region 2 it is probably best to use a weighted average or only use nerby pixels originating from the same color in the bayer pattern.

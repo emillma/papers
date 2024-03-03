@@ -31,8 +31,7 @@
   bibliography-file: "refs.bib",
 )
 
-#glspl("asv")
-   
+
 = Acronyms
 #print-glossary((
 // minimal term

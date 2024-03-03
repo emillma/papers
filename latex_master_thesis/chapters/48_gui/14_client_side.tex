@@ -1,0 +1,50 @@
+\subsection{Client side callbacks and custom Javascript handler}
+Using \gls{dash}`s default python callbacks have a considerable overhead as they are executed on the server, requiring data to be sent back and forth \cite{plotlyPartBasicCallbacks}.
+However, as the primary motivation for adopting \gls{dash} was to make the development process fast, not making optimal applications, this is not a major issue.
+Still, from som particular callabacs used for real time visualization it is preferable to have the callbacks executed on the client side.
+
+\gls{dash} is capable of definig client side callbacks in \gls{js} \cite{plotlyClientsideCallbacksDash}.
+They can be served from separate \gls{js} files or be inlined as strings in \py and served using the \code{clientside_callback} method.
+While proper \gls{js} files are preferable for anything larger than a few lines, as proper syntax highlighting and auto completion is available during development, inlining the \gls{js} code as strings in \py is a practical for minimal callbacks as they can be defined next to the involved components.
+A callback that moved data from one location to another or alters the state of a component are examples of minimal callbacks.
+
+The syntax requiered to use \code{clientside_callback} is totally different from the syntax used for regular callbacks.
+A custom wrapper was created to
+The \gls{js} code can be written in the docstring of the corresponding \py function, making the syntax of defining regular and client side callbacks very similar.
+
+\begin{listing}
+    \begin{minted}{python}
+        # default server side callback
+        @app.callback(
+            Output("local_name-text","children"),
+            Input("local_name-button", "n_clicks"),
+        )
+        def update_image(clicks):
+            return int(clicks) + 1
+
+        # default cliend side callback
+        app.clientside_callback(
+            """
+            update_image(clicks) {
+                return parseInt(clicks) + 1;
+            }
+            """,
+            Output("local_name-text", "children"),
+            Input("local_name-button", "n_clicks"),
+        )
+
+        # mew server side callback
+        @cbm.callback(idp.text.children.as_output())
+        async def update_image(clicks: int = idp.button.n_clicks.as_input()):
+            return clicks + 1
+
+        # new client side callback
+        @cbm.js_callback(idp.text.children.as_output())
+        async def update_image(clicks: int = idp.button.as_input("n_clicks")):
+            """
+            return parseInt(clicks) + 1;
+            """
+    \end{minted}
+    \caption{Example code showing benefit of the \gls{cbm} and \gls{idp}.}
+    \label{lst:cbm_idp_example}
+\end{listing}

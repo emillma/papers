@@ -7,28 +7,52 @@
             "label": "remove zone identifier",
             "type": "shell",
             "command": "find . -name *:Zone.Identifier | xargs rm",
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "problemMatcher": ""
         },
         {
-            "label": "split lines",
+            "label": "echo",
             "type": "shell",
-            "command": "python3 ${workspaceFolder}/.vscode/scripts/split_lines.py ${file}",
-            "problemMatcher": ""
+            "command": "echo",
+            "args": [
+                "${command:extension.commandvariable.selectedText}"
+            ]
         },
         {
-            "label": "latex_hierarchy_up",
-            "type": "shell",
-            "command": "python3 ${workspaceFolder}/.vscode/scripts/latex_hierarchy.py ${file} up",
-            "problemMatcher": ""
+            "label": "split_lines",
+            "type": "process",
+            "command": "python3",
+            "args": [
+                ".vscode/scripts/split_lines.py",
+                "${file}",
+            ]
         },
         {
             "label": "latex_hierarchy_down",
-            "type": "shell",
-            "command": "python3 ${workspaceFolder}/.vscode/scripts/latex_hierarchy.py ${file} down",
-            "problemMatcher": ""
+            "type": "process",
+            "command": "python3",
+            "args": [
+                ".vscode/scripts/latex_hierarchy.py",
+                "${file}",
+                "down"
+            ]
+        },
+        {
+            "label": "latex_hierarchy_up",
+            "type": "process",
+            "command": "python3",
+            "args": [
+                ".vscode/scripts/latex_hierarchy.py",
+                "${file}",
+                "up"
+            ]
+        },
+        {
+            "label": "word_count",
+            "type": "process",
+            "command": "python3",
+            "args": [
+                ".vscode/scripts/word_count.py",
+                "${command:extension.commandvariable.selectedText}"
+            ]
         }
     ],
 }

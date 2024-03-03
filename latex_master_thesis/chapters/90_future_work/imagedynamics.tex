@@ -1,0 +1,14 @@
+\section{Automatic camera parameter adjustment}
+Currently the shutter speed and gain of the camera is set manually through the \srgui while other parameters such as color balance are kept constant at runtime.
+It is possible to get the cameras to adjust these settings automatically, but it generally results in to bright images.
+Having the same settings for all cameras is also beneficial for future stereo vision applications.
+
+Based on future needs, automatic camera adjustment might be necessary.
+Average brightness or histograms could be calculated as a part of the \gls{cuda} kernel that performs debayering to achieve high performance, and used to determine ideal settings for the cameras.
+Here
+
+The \cams supports independent gain for each polarization color channel to get proper color balance as well as independent gain for each polarization angle, which could be useful to handle polarized reflections of the sun \cite{lucidvisionlabsTritonMPPolarized2020}.
+This could also be used to use get high dynamic range by using different gains for the different angles, as discussed in Pierre-Jean Lapray's paper \cite{laprayExploitingRedundancyColorpolarization2020}.
+One minor issue with dynamically adjusting individual gains is that they are not reported together with each output frame, as opposed to overall gain, necessitating a separate logging method \cite{lucidvisionlabsTritonMPPolarized2020}.
+
+Anoter feature worth exploring is the sequencer control that enables alternating between multiple gain and shutter speed values \cite{lucidvisionlabsTritonMPPolarized2020}.

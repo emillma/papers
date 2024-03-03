@@ -1,0 +1,48 @@
+
+\subsection{Sending video over network}
+Several different methods were tested to provide a live stream of the images taken by the cameras.
+Ideally a separate variable bitrate video encoder would be used to encode the images into a video stream and serve it over the network to a video streaming client in a web browser on the phone.
+Given the available bandwidth, this would allow the user to view the video stream with maximum quality.
+
+\subsubsection{Streaming MP4 videos}
+Streaming existing \gls{mp4} video files can easily be done by serving the file over \gls{http} using a simple Python web server and the default video player in \gls{chrome}.
+Unfortunately, it proved more difficult to live stream video in real-time.
+
+The first attempt at streaming video in real time was to serve \gls{mp4} data from \gs as a file and use the \gls{dash} Player to automatically go to the next video segment when the previous one was finished.
+This worked to some degree, but required a latency of several seconds and had notable jumps between segments.
+
+The secont approach was done following a blog post from Dusan Kovacevic on how to stream video to a web browser over \gls{hls} but did not yield a working result \cite{kovacevicStreamLiveVideo2020}.
+
+The third approach was using \gls{rtsp}.
+It was, however possible to stream video to \gls{vlc} over \gls{rtsp}, but it did not work in the web browser.
+
+\subsubsection{Streaming JPEGs}
+As it proved difficult to stream video streams, the next approach was to stream \glspl{jpeg} over the network instead.
+For the current use case, which is to verify that the camera is working properly, compression loss or reduced framerate is not viewed as a major problem.
+The first attempt was to simply serve image data from a Python web server and routinely update the image on the web page.
+This worked fine but resulted in a non-smooth framerate as the same image was sometimes served twice in a row.
+To solve this \glspl{ws} were used to serve the images instead.
+They made it possible for the server to push data to the client when new images were available rather than relying on the client polling the server for new data.
+
+\paragraph{Base64 encoding}
+An easy way to serve \glspl{jpeg} is to encode them as base64 strings and serve them as text \cite{rAnswerHowDisplay2013}.
+Initially this encoding was done serverside but as base64 encoding at least 33\% overhead a small \gls{js} scripted was written to do the encoding clientside instead, shown in Listing \ref{listing:base64}.
+It is expeted to possible to update the image from raw \gls{jpeg} bytes, but this was not prioritized as the base64 encoding was easy to implement and worked well enough.
+
+\begin{listing}[H]
+    \begin{minted}{js}
+        if (message) {
+        return message.data.arrayBuffer().then(buffer => {
+            let b64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+            return "data:image/jpeg;base64," + b64; });
+        } else {return no_update};
+    \end{minted}
+    \caption{JavaScript code for encoding \gls{jpeg} data as base64 strings}
+    \label{listing:base64}
+\end{listing}
+
+
+
+
+
+

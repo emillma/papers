@@ -1,0 +1,64 @@
+\section{Concurrent programming in Python}
+\label{sec:concurrent_programming_in_python}
+Most of the code in this thesis is written in Python, and therefore it is important to understand how concurrent programming is implemented in \py.
+There are many different ways to achieve concurrency in Python, including threading, multiprocessing, subprocesses, and \gls{asyncio}.
+
+\subsection{Threading}
+The benefits of using threads include their ease of use and seamless integration with existing code. However, CPython, the most common implementation of Python, employs the \gls{gil} as a crucial design choice. The \gls{gil} ensures that multiple threads cannot execute Python code simultaneously, unlike in most other programming languages \cite{ajitsariaWhatPythonGlobal2018}. Guido van Rossum, the creator of Python, provides an explanation for the inclusion of the GIL in Python during an episode of Lex Fridman's podcast \cite{lexfridmanGuidoVanRossum2022}..
+
+\subsection{Multiprocessing}
+In contrast to threads, multiprocessing allows for true parallelism, as each process has its own \gls{gil} \cite{ajitsariaWhatPythonGlobal2018}.
+However, communicating between processes is more difficult than communicating between threads, as processes do not share memory, and data has to be serialized in order to be transferred, imposing a significant overhead \cite{pythonsoftwarefoundationMultiprocessingProcessbasedParallelism}.
+
+\subsection{Subprocessing}
+Python's \code{subprocess} module makes it possible to launch, monitor and interact with external processes \cite{pythonsoftwarefoundationSubprocessSubprocessManagement}.
+The main advantage of using subprocesses is that any existing program can easily be used, regardless of the programming language it is written in.
+
+\subsection{AsyncIO}
+The \py standard library provides the \gls{asyncio} module, enabling the use of an event loop for scheduling and executing asynchronous tasks \cite{pythonsoftwarefoundationAsyncioAsynchronous}.
+While \gls{asyncio} offers greater control over program execution, it requires careful program design to prevent blocking the event loop.
+
+To use \gls{asyncio}, the program must be written in a way that allows the event loop to switch between tasks, making it difficult to use it with existing code that is not designed for asynchronous execution.
+Fortunately, \gls{asyncio} makes it easy to integrate existing blocking code by running it in a thread pool, a process pool, or even as a subprocess and wrapping it in a coroutine \cite{pythonsoftwarefoundationAsyncioAsynchronous}.
+
+Compared to threads, \gls{asyncio} is more lightweight and has less overhead, as shown in Listing \ref{listing:concurrency_test} and \ref{listing:concurrency_test_results}.
+In the test, four different ways to achieve concurrency are compared, \gls{asyncio}, threads, a thread pool, and a thread pool running in \gls{asyncio}.
+In the test, 10000 tasks are executed, each of which sleeps for one second.
+
+\begin{listing}[H]
+    \begin{minted}{python}
+        N=10000
+        def sleep_1sec(): time.sleep(1)
+        async def sleep_1sec_async(): await asyncio.sleep(1)
+
+        async def test_asyncio():
+            await asyncio.gather(*[sleep_1sec_async() for _ in range(N)])
+
+        def test_thread_pool():
+            with ThreadPoolExecutor(max_workers=N) as ex:
+                futures = [ex.submit(sleep_1sec) for _ in range(N)]
+
+        async def test_thread_pool_async():
+            loop = asyncio.get_event_loop()
+            with ThreadPoolExecutor(max_workers=N) as ex:
+                asyncio.gather(*[loop.run_in_executor(ex, sleep_1sec) for _ in range(N)])
+
+        def test_threads():
+            threads = [threading.Thread(target=do_nothing) for _ in range(N)]
+            [thread.start() for thread in threads]
+            [thread.join() for thread in threads]
+    \end{minted}
+    \caption{Code used to compatre asyncio and threads.}
+    \label{listing:concurrency_test}
+\end{listing}
+\begin{listing}[H]
+    \begin{minted}{bash}
+        >>> test_asyncio took 1.373797 seconds to complete.
+        >>> test_thread_pool took 4.091199 seconds to complete.
+        >>> test_thread_pool_async took 4.391777 seconds to complete.
+        >>> test_threads took 5.373108 seconds to complete.
+    \end{minted}
+    \caption{Results when running the code in Listing  \ref{listing:concurrency_test} on the \jx}
+    \label{listing:concurrency_test_results}
+\end{listing}
+

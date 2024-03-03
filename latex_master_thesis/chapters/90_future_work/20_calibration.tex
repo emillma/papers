@@ -1,0 +1,10 @@
+\section{Calibration}
+Towards the conclusion of the \preproject, the plan was to perform calibration during the \master, as discussed in Section 8.3 of the \preproject.
+The initial idea was to use existing tools such as Kalibr or one from the list of calibration tools compiled by Simon \cite{EthzaslKalibr2023}\cite{simonCameraCalibTools2023}.
+However, due to the shift in focus towards real-time video processing with \gls{cuda} and \gls{gstreamer}, the calibration task was not prioritized.
+
+Another contributing factor to the delay is the complaints from colleagues regarding the difficulty of using these calibration tools.
+Consideration has been given to developing a new calibration suite based on the $\mathbf{SE_2(3)}$ group as a potential future research project to which I could contribute.
+The $\mathbf{SE_2(3)}$ group is particularly suitable for describing how uncertainty propagates when the extended pose includes the state of an \gls{imu} \cite{barfootAssociatingUncertaintyThreeDimensional2014}.
+I have gained experience in implementing the $\mathbf{SE_2(3)}$ group in \gls{symforce} through another project, and I have studied relevant topics such as Lie Theory for robotics and factor graph optimization.
+However, as developing a calibration suite is a significant endeavor, it was mostly ignored in favor of other tasks during the \master.

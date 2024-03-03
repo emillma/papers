@@ -1,0 +1,60 @@
+\documentclass[british,titlepage,twoside]{ntnuthesis}
+
+\title{Paving the Way for Enhanced Situational Awareness in the Maritime Domain: 
+Designing and Ensembling a Sensor Rig for Multi-Sensor Data Set Acquisition}
+\shorttitle{Sensor Rig for Multi-Sensor Data Set Acquisition}
+\author{Emil Martens}
+\shortauthor{Emil Martens}
+\date{Spring 2023}
+\addbibresource{thesis.bib}
+
+\input{commands.tex}
+\input{glossary.tex} 
+% \oneside
+% 
+\emergencystretch=1em
+% \includeonly{chapters/10_intro/__include__}
+% \includeonly{chapters/30_debayer_in_cuda/__include__}
+
+\begin{document}
+\includepdf{chapters/10_intro/frontpage.pdf}
+\tableofcontents
+% \listoffigures
+% \listoftables
+% \lstlistoflistings 
+\pagebreak
+
+\input{chapters/__include__.tex}
+\chapter{Conclusion}
+In this \master I have successfully finished the development of a \sr capable of capturing synchronized stereo data from two polarization cameras.
+Using \gls{cuda} and \gls{gstreamer} I have achieved on-the-fly hardware-accelerated video compression on the \jx, which enables the recording of longer data sets.
+In addition to this, the \sr is now easy to use for anyone, thanks to the new web-based \gls{gui} and 3D printed ergonomic handles.
+
+Completing the \sr has been a challenging but rewarding process where I have acquired many new skills.
+Based on the experience I have gained, I can say that designing and building a \sr is a non-trivial and time-consuming task that should be avoided if existing datasets are sufficient for the task at hand.
+
+The \sr provides a combination of sensor data that is believed to be unique and valuable for future research.
+My supervisor, Annette Stahl, and I have started planning a scientific paper presenting this new type of data set and how stereo polarization cameras can be used to enhance situational awareness in the maritime domain.
+
+The achievements of this \master are expected to be an excellent starting point for my future Ph.D. work and be used in several other projects at NTNU.
+
+
+
+
+\newglossarystyle{mystyle}{\glossarystyle{long}\renewenvironment{theglossary}%
+    {\footnotesize \begin{longtable}{p{3cm}p{\glsdescwidth}}}{\end{longtable}}%
+}
+\printglossary[style=mystyle,type=\acronymtype]
+\printglossary[style=mystyle]
+\AtNextBibliography{\footnotesize}
+\printbibliography
+
+\chapter{Additional resources}
+\label{chap:additional_resources}
+\include{appendices/index_table.tex}
+\include{appendices/forum_posts.tex}
+% \include{appendices/compilation.tex}
+\include{appendices/curaconfig.tex}
+
+
+\end{document}

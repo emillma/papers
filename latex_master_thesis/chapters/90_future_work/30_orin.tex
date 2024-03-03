@@ -1,0 +1,6 @@
+\section{Migrating to Jetson Orin}
+As we have ordered a \jo migration to this platform will be performed in the future.
+With the compilation and flashing scripts in place, compiling the latest version of JetPack and flashing the \jo should be simplified, but will probably still take a couple of tries.
+The current preprocessing implementation in\gls{cuda} is partially designed arount limited amound shared memory on the \jx \gls{gpu}, which will no longer be necessary on the \jo, making it possible to process each fram on a single \gls{sm}.
+
+

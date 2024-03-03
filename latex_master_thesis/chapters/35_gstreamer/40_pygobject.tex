@@ -1,0 +1,21 @@
+\section{Working with PyGobject}
+While using \code{gst-launch-1.0} was a good way to get started with \gs, it was not ideal as communication with the pipeline imposed a significant overhead, debugging was difficult and it was not possible to monitor the pipeline.
+To get more control over the pipeline, the \gls{pygo} library was used to create the pipeline in \py.
+\gls{pygo} is a \py library that provides bindings for the \gs \gls{api} \cite{OverviewPyGObject}.
+
+\subsection{Type Hints}
+\gls{pygo} does not provide any type hints for the \gs \gls{api}.
+This makes the development process slow as external documentation has to be consulted for every minor detail, like the name of a function or the order of its arguments.
+On top of this, the syntax of the \gls{pygo} library is different from the syntax of the \gs \gls{api}.
+The \gls{api} is written in C and uses a function-oriented approach where pointers to objects are passed to functions, while \gls{pygo} is written in \py and is object-oriented.
+An illustrative example of this is how memory is appended to a buffer in the \gs \gls{api} and in \gls{pygo}, as shown in Listing \ref{lst:gst_memory_append_difference}.
+To make the development process easier, the separate \code{pygobjcet-stubs} library, which provides type hints for \gls{pygo}, is strongly recommended \cite{pygobjectTypingStubsPyGObject2023}.
+
+\begin{listing}[H]
+    \begin{minted}[linenos=false]{text}
+        (C:)         gst_buffer_append_memory(buffer_ptr, memory_ptr)
+        (Python:)    buffer.append_memory(memory)
+    \end{minted}
+    \caption{Difference between \gs \gls{api} and \gls{pygo} syntax}
+    \label{lst:gst_memory_append_difference}
+\end{listing}

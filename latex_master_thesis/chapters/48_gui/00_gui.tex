@@ -1,0 +1,41 @@
+\chapter{Graphical Web Interface}
+\label{chap:gui}
+This chapter presents the web application developed to enable real-time control and monitoring of the \sr and its video streams.
+The application allows anyone with a smartphone to operate the \sr without any prior training or technical knowledge.
+In addition, a \gls{pubsub} server has been implemented for communication between the web application and the pipeline.
+
+
+\section{Continuation of previous work}
+During the \preproject, a simple method of interacting with the system from a phone through the JuiceSSH app over \gls{ssh} was tested, as described in Section 6.5.2 of the \preproject.
+The exploration of using JuiceSSH to control the \sr was continued, and several useful command snippets were saved in the app to facilitate the execution of necessary commands for starting and stopping processes on the \jx through the phone.
+
+However, it became evident that this solution was not satisfactory, as it posed difficulties in verifying that the camera was recording the intended content without visual feedback.
+Additionally, the simultaneous execution and monitoring of multiple programs proved to be challenging within the JuiceSSH environment.
+
+
+\section{Motivation for Web Based GUI}
+Given that the \sr records video, it was logical to explore a \gls{gui} framework that could display the video.
+Initially, integrating a monitor and input devices into the \sr and developing a Qt application was considered but ultimately rejected due to the substantial effort required and the resulting reduction in the portability of the \sr.
+
+Instead, a web-based \gls{gui} was deemed more favorable, as it could be accessed from an external mobile phone via the \sr's WiFi module, as discussed in Section 6.5 of the \preproject.
+The \gls{dash} framework, based on \py and equipped with numerous useful components for creating web-based \glspl{gui}, was selected for this purpose.
+
+Moreover, in a broader context, the need for an effective visual interaction and data visualization solution for remote computers was recognized.
+Development on the \jx has been conducted through \gls{ssh}, which has made data visualization with tools like Matplotlib cumbersome.
+The data collected from the \sr will be utilized for training and inference of AI models during my Ph.D.
+Studies and a headless workstation have been procured for this purpose, underscoring the relevance of the web-based \gls{gui} framework for future work.
+
+
+\subsection{Alternatives}
+Initially, I wanted to use this as an opportunity to learn a \gls{js} framework like React, Vue or Svelte.
+However, with very little personal experience using \gls{js} it appeared too ambitious to learn a new framework in a new language.
+I decided to go for \gls{dash} instead, a \py framework for building web applications with interactive data visualizations and analytical capabilities \cite{plotlyPlotlyLowCodeData}.
+As it is based on \py, the learning curve would be less steep.
+
+\subsection{Downsides}
+The main downside of using \gls{dash} is that it is not designed for real-time applications and lacks native support for \glsps{ws}.
+On their website, they only propose using an interval component to poll the server for updates at regular intervals  \cite{plotlyLiveUpdatesDasha}.
+This works, but if data should be sent from the server as soon as it becomes available, like when you are recording video, it is not the best solution.
+
+Another small downside is that \gls{dash} is built on top of Flask, a thread-based server framework that is slower than newer asynchronous alternatives.
+

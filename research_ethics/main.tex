@@ -1,0 +1,29 @@
+\documentclass{template}
+
+\usepackage[T1]{fontenc}
+
+\usepackage[style=apa]{biblatex}
+\renewcommand{\cite}[1]{\parencite{#1}}
+
+\addbibresource{refs.bib}
+
+\begin{document}
+\title{The Question of Co-Authorship}
+\author{Group 4: Tanya Mangion, Emil Martens, Josephine Nell Schulze, Gul Sher Ali, Sonu Kumar Jha}
+
+\input{parts/introduction}
+\input{parts/why_it_matters}
+\input{parts/vancouver}
+\input{parts/young_researchers}
+\input{parts/how_to_solve}
+
+\section{Conclusion}
+Conclude.
+
+\nocite{*} % Include all entries from the .bib file
+\printbibliography
+\pagebreak
+
+\input{parts/contributions.tex}
+
+\end{document}

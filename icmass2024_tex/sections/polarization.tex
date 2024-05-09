@@ -1,0 +1,67 @@
+\subsection{Polarization Properties of Reflected Light}
+Unpolarized light becomes partially polarized when reflected off a surface \cite[34]{lingUniversityPhysicsVolume2016}.
+This is the reason why sunglasses are commonly polarized, as they are designed to block reflected light from surfaces such as roads or water.
+Figure \ref{fig:polarized_reflection} illustrates this phenomenon where the light gets partially polarized parallel to the surface (perpendicular to the plane of incidence).
+At one particular angle of incidence, the reflected light is completely polarized parallel to the surface.
+This angle is called the Brewster angle and is given by \cite{BrewsterAngle2024}:
+
+\begin{equation}
+    \theta_B = \arctan{\frac{n_2}{n_1}}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.8\linewidth]{figures/polarization/reflaction.png}
+    \caption{Polarization by reflection. \cite[Figure 1.38]{lingUniversityPhysicsVolume2016}}
+    \label{fig:polarized_reflection}
+\end{figure}
+
+
+Any polarization state can be resolved as a sum of two orthogonal linear polarizations where one is perpendicular to the plane of incidence $R_\perp$ and the other is parallel to the plane of incidence $R_\parallel$ \cite{FresnelEquations2024}.
+These two components are referred to as s-polarized and p-polarized light, respectively and their reflection coefficients are given by the Fresnel equations \cite{FresnelEquations2024}:
+
+\begin{align}
+    R_\perp =         & \left|{\frac {n_{1}\cos \theta _1-n_{2}\cos \theta _2}{n_{1}\cos \theta _1+n_{2}\cos \theta _2}}\right|^{2}
+                      &
+    R_\parallel     = & \left|{\frac {n_{1}\cos \theta _2-n_{2}\cos \theta _1}{n_{1}\cos \theta _2+n_{2}\cos \theta _1}}\right|^{2}
+\end{align}
+
+Where  $\eta_1$ and $\eta_2$ are the refractive indices of the two media,
+$\theta_i$ is the angle of incidence and $\theta_r$ is the angle of refraction.
+
+Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\left(\theta_2 \right)}$ and Snell's law $\eta_1 \sin{\left(\theta_1 \right)} = \eta_2 \sin{\left(\theta_2 \right)}$ the angle of refraction, $\theta_2$ can be removed, and the equations can be written as:
+
+\begin{align}
+    R_\perp =         & \left|{\frac {n_{1}\cos \theta _1-n_{2}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}}{n_{1}\cos \theta _1+n_{2}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}}}\right|^{2}
+                      &
+    R_\parallel     = & \left|{\frac {n_{1}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}-n_{2}\cos \theta _1}{n_{1}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}+n_{2}\cos \theta _1}}\right|^{2}
+\end{align}
+
+
+Inserting the refractive index of air, $n_1 = 1$, and the refractive index of water, $n_2 = 1.33$, the reflectance can be calculated and plotted as a function of the angle of incidence, $\theta_1$, alone as shown in Figure \ref{fig:brewster0}.
+
+The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two components:
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{.5\textwidth}
+        \centering
+
+        \includegraphics[width=\textwidth]{figures/pol_plots/brewster0.pdf}
+        \caption{Reflectance of S and P polarized light of water.}
+        \label{fig:brewster0}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/pol_plots/brewster1.pdf}
+        \caption{\gls{dolp} of light reflected off water.}
+        \label{fig:sub2}
+    \end{subfigure}
+    \caption{Reflectance and \gls{dolp} of light reflected off water as a funcion of of the angle of incidence. The Brewster angle is marked with a vertical line.}
+    \label{fig:test}
+\end{figure}
+
+
+
+
+

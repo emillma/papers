@@ -41,27 +41,27 @@
 \pagestyle{empty}
 
 \renewcommand{\title}[1]{\vspace*{25mm}{\exhyphenpenalty=10000\hyphenpenalty=10000
-              \fontsize{18bp}{24bp}\selectfont\bf\noindent\raggedright
-              \textsf{#1}\par}}
+        \fontsize{18bp}{24bp}\selectfont\bf\noindent\raggedright
+        \textsf{#1}\par}}
 
 
 \renewcommand{\author}[1]{\vspace*{1.5pc}%
-       \fontsize{14bp}{16bp}\raggedright
-       \begin{quote}\textbf{\textsf{#1}}\end{quote}}
+    \fontsize{14bp}{16bp}\raggedright
+    \begin{quote}\textbf{\textsf{#1}}\end{quote}}
 
 \newcommand{\affil}[1]{\fontsize{10bp}{11bp}\selectfont\raggedright
-       \begin{quote}#1\end{quote}
-       \vspace*{-22pt}}
+    \begin{quote}#1\end{quote}
+    \vspace*{-22pt}}
 
 \newcommand{\email}[1]{\vspace*{12pt}\fontsize{10bp}{11bp}\selectfont\raggedright
-       \begin{quote}E-mail: #1\end{quote}
-       \vspace*{-22pt}}
+    \begin{quote}E-mail: #1\end{quote}
+    \vspace*{-22pt}}
 
 \renewenvironment{abstract}{%
-       \vspace{16pt plus3pt minus3pt}
-       \begin{quote}
-              \bfseries \abstractname.\quad\rm\ignorespaces} 
-              {\end{quote}\vspace{5mm}}
+    \vspace{16pt plus3pt minus3pt}
+    \begin{quote}
+        \bfseries \abstractname.\quad\rm\ignorespaces} 
+        {\end{quote}\vspace{5mm}}
 
 % Section titles
 
@@ -70,23 +70,31 @@
   {1sp}%
   {\reset@font\normalsize\bfseries\raggedright}}
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-       {-3.25ex\@plus -1ex \@minus -.2ex}%
-       {1sp}%
-       {\reset@font\normalsize\itshape\raggedright}}
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1sp}%
+    {\reset@font\normalsize\itshape\raggedright}}
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-       {-3.25ex\@plus -1ex \@minus -.2ex}%
-       {-1em \@plus .2em}%
-       {\reset@font\normalsize\itshape}}
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {-1em \@plus .2em}%
+    {\reset@font\normalsize\itshape}}
 \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-       {3.25ex \@plus1ex \@minus.2ex}%
-       {-1em}%
-       {\reset@font\normalsize\itshape}}
+    {3.25ex \@plus1ex \@minus.2ex}%
+    {-1em}%
+    {\reset@font\normalsize\itshape}}
 \renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-       {3.25ex \@plus1ex \@minus .2ex}%
-       {-1em}%
-       {\reset@font\normalsize\itshape}}
+    {3.25ex \@plus1ex \@minus .2ex}%
+    {-1em}%
+    {\reset@font\normalsize\itshape}}
 
-
-
-
-\endinput
+\RequirePackage{csquotes}                   % recommended for biblatex
+\RequirePackage[
+    backend=biber,
+    style=ieee,
+    maxbibnames=99,
+    minbibnames=3,
+    maxcitenames=2,
+    mincitenames=1,
+    citestyle=numeric-comp,
+    sorting=none,
+    dashed=false
+]{biblatex}                                 % for bibliography

@@ -19,6 +19,8 @@ vals = {
     n_air: 1,
     n_water: 1.33,
 }
+
+
 r_s = (n_air * sp.cos(a_air) - n_water * sp.cos(a_water)) / (
     n_air * sp.cos(a_air) + n_water * sp.cos(a_water)
 )

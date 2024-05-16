@@ -1,13 +1,7 @@
-\subsection{Polarization Properties of Reflected Light}
-Unpolarized light becomes partially polarized when reflected off a surface \cite[34]{lingUniversityPhysicsVolume2016}.
-This is the reason why sunglasses are commonly polarized, as they are designed to block reflected light from surfaces such as roads or water.
-Figure \ref{fig:polarized_reflection} illustrates this phenomenon where the light gets partially polarized parallel to the surface (perpendicular to the plane of incidence).
-At one particular angle of incidence, the reflected light is completely polarized parallel to the surface.
-This angle is called the Brewster angle and is given by \cite{BrewsterAngle2024}:
+\section{Polarization Properties of Reflected Light}
+When light is reflected off a surface, its polarization state changes \cite[34]{lingUniversityPhysicsVolume2016}.
+This is illustrated in Figure \ref{fig:polarized_reflection} where the unpolarized light reflected off a surface becomes partially polarized.
 
-\begin{equation}
-    \theta_B = \arctan{\frac{n_2}{n_1}}
-\end{equation}
 
 \begin{figure}[H]
     \centering
@@ -17,8 +11,8 @@ This angle is called the Brewster angle and is given by \cite{BrewsterAngle2024}
 \end{figure}
 
 
-Any polarization state can be resolved as a sum of two orthogonal linear polarizations where one is perpendicular to the plane of incidence $R_\perp$ and the other is parallel to the plane of incidence $R_\parallel$ \cite{FresnelEquations2024}.
-These two components are referred to as s-polarized and p-polarized light, respectively and their reflection coefficients are given by the Fresnel equations \cite{FresnelEquations2024}:
+Unpolarized light can be described as a sum of two orthogonal linear polarizations $R_\perp$ and $R_\parallel$, where $R_\perp$ is perpendicular to the plane of incidence and $R_\parallel$ is parallel to the plane of incidence  \cite{FresnelEquations2024}.
+These two components are referred to as s-polarized and p-polarized light, respectively. Their reflection coefficients differ and are given by the Fresnel equations below \cite{FresnelEquations2024}:
 
 \begin{align}
     R_\perp =         & \left|{\frac {n_{1}\cos \theta _1-n_{2}\cos \theta _2}{n_{1}\cos \theta _1+n_{2}\cos \theta _2}}\right|^{2}
@@ -28,8 +22,7 @@ These two components are referred to as s-polarized and p-polarized light, respe
 
 Where  $\eta_1$ and $\eta_2$ are the refractive indices of the two media,
 $\theta_i$ is the angle of incidence and $\theta_r$ is the angle of refraction.
-
-Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\left(\theta_2 \right)}$ and Snell's law $\eta_1 \sin{\left(\theta_1 \right)} = \eta_2 \sin{\left(\theta_2 \right)}$ the angle of refraction, $\theta_2$ can be removed, and the equations can be written as:
+Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\left(\theta_2 \right)}$ and Snell's law $\eta_1 \sin{\left(\theta_1 \right)} = \eta_2 \sin{\left(\theta_2 \right)}$ the angle of refraction, $\theta_2$ can be removed, and the equations can be rewritten as:
 
 \begin{align}
     R_\perp =         & \left|{\frac {n_{1}\cos \theta _1-n_{2}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}}{n_{1}\cos \theta _1+n_{2}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}}}\right|^{2}
@@ -39,14 +32,21 @@ Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\l
 
 
 Inserting the refractive index of air, $n_1 = 1$, and the refractive index of water, $n_2 = 1.33$, the reflectance can be calculated and plotted as a function of the angle of incidence, $\theta_1$, alone as shown in Figure \ref{fig:brewster0}.
+The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two polarizations components. The \gls{dolp} is plotted in Figure \ref{fig:brewster1}.
 
-The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two components:
+\begin{align}
+    DoLP= & \frac{\left | R_\perp - R_\parallel \right |}{R_\perp + R_\parallel}
+\end{align}
+
+At one particular angle of incidence, $\theta_B$, known as the Brewser angle, $R_\parallel$ becomes zero, and the reflected light is completely s-polarized \cite{BrewsterAngle2024}:
+\begin{align}
+    \theta_B & = \arctan{\frac{n_2}{n_1}} & \theta^{air}_{Bwater} & = \arctan{\frac{1.33}{1}} = 53.06^\circ
+\end{align}
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}{.5\textwidth}
         \centering
-
         \includegraphics[width=\textwidth]{figures/pol_plots/brewster0.pdf}
         \caption{Reflectance of S and P polarized light of water.}
         \label{fig:brewster0}
@@ -55,7 +55,7 @@ The \gls{dolp} is the degree to which light is polarized and can be defined as t
         \centering
         \includegraphics[width=\textwidth]{figures/pol_plots/brewster1.pdf}
         \caption{\gls{dolp} of light reflected off water.}
-        \label{fig:sub2}
+        \label{fig:brewster1}
     \end{subfigure}
     \caption{Reflectance and \gls{dolp} of light reflected off water as a funcion of of the angle of incidence. The Brewster angle is marked with a vertical line.}
     \label{fig:test}
@@ -63,5 +63,69 @@ The \gls{dolp} is the degree to which light is polarized and can be defined as t
 
 
 
+
+\section{Polarization Cameras}
+More generally, light can be described as a transverse wave
+
+
+
+A linear polarizer can be used to filter light based on its polarization state.
+
+\begin{minipage}{.5\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figures/polarization_sketch.pdf}
+        \caption{The polarization ellipse \cite{inductiveloadPolarisation_ellipse22008}.}
+        \label{fig:polarization_naming}
+    \end{figure}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+    \begin{align*}
+         & I_0     &  & =a^2\cos^2\theta + b^2\sin^2\theta                                 \\
+         & I_{90}  &  & =a^2\sin^2\theta + b^2\cos^2\theta                                 \\
+         & I_{45}  &  & =a^2\cos^2(\theta+\frac{\pi}{4}) + b^2\sin^2(\theta+\frac{\pi}{4}) \\
+         & I_{135} &  & =a^2\sin^2(\theta+\frac{\pi}{4}) + b^2\cos^2(\theta+\frac{\pi}{4}) \\
+    \end{align*}
+    \begin{align*}
+         & S_0 &  & = I_0     + I_{90}  &  & = a^2+b^2          &  & \\
+         & S_1 &  & = I_0     - I_{90}  &  & =(a^2-b^2)\cos(2x) &  & \\
+         & S_2 &  & = I_{45}  - I_{135} &  & =2ab\sin(2\theta)  &  & \\
+    \end{align*}
+    \begin{align*}
+         & \theta &  & = \frac{1}{2}\arctan{\left(\frac{S_2}{S_1}\right)} \\
+    \end{align*}
+    % S_1  =  & I_0 - I_{90}                                                                                                  \\
+    % S_2  =  & I_{45} - I_{135}                                                                                              \\
+    % DoLP =                                    & \frac{\sqrt{S_1^2 + S_2^2}}{S_0}  \label{eq:dolp}                 \\
+    % AoLP = \theta =                           & \frac{1}{2} \arctan{\left(\frac{S_2}{S_1}\right)} \label{eq:aolp}
+\end{minipage}%
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/sensor/sensor_layout.pdf}
+    \caption{Visualization of the color polarization filter array sensor. The lines over each pixel represent the polarization filter angle.}
+    \label{fig:polarization_naming}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/cmap/aolp_dolp_cmap.pdf}
+    \caption{Visualization of \gls{dolp} and \gls{aolp}}
+\end{figure}
+
+\subsection*{Debayering}
+There are other more advanced methods but a simple convolution works.
+
+
+
+% \section{Debayering of Color Polarization Images}
+
+% \begin{align*}
+%     \text{BT709} = \begin{bmatrix}
+%                        0.2126  & 0.7152  & 0.0722  \\
+%                        -0.1146 & -0.3854 & 0.5     \\
+%                        0.5     & -0.4542 & -0.0458
+%                    \end{bmatrix}
+% \end{align*}
 
 

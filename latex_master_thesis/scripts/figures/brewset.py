@@ -40,7 +40,7 @@ a = np.linspace(0, np.pi / 2, 100)
 brewster = np.arctan(1.33 / 1)
 
 
-plt.rcParams.update({"text.usetex": True, "font.family": "Helvetica"})
+plt.rcParams.update({"text.usetex": True, "font.family": "Helvetica", "font.size": 14})
 
 fig0, ax0 = plt.subplots(figsize=(6, 3))
 ax0.plot(np.rad2deg(a), R_s_lamb(a), c="#c92a2a", label="$R_\\perp$")

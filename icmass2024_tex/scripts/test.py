@@ -9,7 +9,7 @@ a, b = sp.symbols("a,b")
 
 
 def f(d):
-    return (a * cos(d)) ** 2 + (b * sin(d)) ** 2
+    return (a * cos(-d)) ** 2 + (b * sin(-d)) ** 2
 
 
 x = sp.symbols("x")
@@ -27,7 +27,7 @@ i135 = f(d135)
 i = (a * cos(x) - b * sin(x)) ** 2
 j = (a * sin(x) + b * cos(x)) ** 2
 
-s1 = (i0 - i90).trigsimp().simplify()
+s1 = (i90 - i0).trigsimp().simplify()
 s2 = (i45 - i135).trigsimp().simplify()
 
 (i0 + i90).simplify()

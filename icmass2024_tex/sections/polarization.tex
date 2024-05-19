@@ -6,13 +6,15 @@ This is illustrated in Figure \ref{fig:polarized_reflection} where the unpolariz
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\linewidth]{figures/polarization/reflaction.png}
-    \caption{Polarization by reflection. \cite[Figure 1.38]{lingUniversityPhysicsVolume2016}}
+    \caption{Polarization by reflection.
+        \cite[Figure 1.38]{lingUniversityPhysicsVolume2016}}
     \label{fig:polarized_reflection}
 \end{figure}
 
 
 Unpolarized light can be described as a sum of two orthogonal linear polarizations $R_\perp$ and $R_\parallel$, where $R_\perp$ is perpendicular to the plane of incidence and $R_\parallel$ is parallel to the plane of incidence  \cite{FresnelEquations2024}.
-These two components are referred to as s-polarized and p-polarized light, respectively. Their reflection coefficients differ and are given by the Fresnel equations below \cite{FresnelEquations2024}:
+These two components are referred to as s-polarized and p-polarized light, respectively.
+Their reflection coefficients differ and are given by the Fresnel equations below \cite{FresnelEquations2024}:
 
 \begin{align}
     R_\perp =         & \left|{\frac {n_{1}\cos \theta _1-n_{2}\cos \theta _2}{n_{1}\cos \theta _1+n_{2}\cos \theta _2}}\right|^{2}
@@ -32,7 +34,8 @@ Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\l
 
 
 Inserting the refractive index of air, $n_1 = 1$, and the refractive index of water, $n_2 = 1.33$, the reflectance can be calculated and plotted as a function of the angle of incidence, $\theta_1$, alone as shown in Figure \ref{fig:brewster0}.
-The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two polarizations components. The \gls{dolp} is plotted in Figure \ref{fig:brewster1}.
+The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two polarizations components.
+The \gls{dolp} is plotted in Figure \ref{fig:brewster1}.
 
 \begin{align}
     DoLP= & \frac{\left | R_\perp - R_\parallel \right |}{R_\perp + R_\parallel}
@@ -57,53 +60,64 @@ At one particular angle of incidence, $\theta_B$, known as the Brewser angle, $R
         \caption{\gls{dolp} of light reflected off water.}
         \label{fig:brewster1}
     \end{subfigure}
-    \caption{Reflectance and \gls{dolp} of light reflected off water as a funcion of of the angle of incidence. The Brewster angle is marked with a vertical line.}
+    \caption{Reflectance and \gls{dolp} of light reflected off water as a funcion of of the angle of incidence.
+        The Brewster angle is marked with a vertical line.}
     \label{fig:test}
 \end{figure}
 
 
 
 
-\section{Polarization Cameras}
-More generally, light can be described as a transverse wave
+\section{Polarization of Light}
+Light behaves as a transverse wave, with its electromagnetic field oscillating in a plane that's perpendicular to the direction in which it travels.
+In the case of polarized light, these oscillations trace an elliptical path, which simplifies to a circular or straight line for pure circular or linear polarization, respectively.
+When light passes through a linear polarizer, the electric field is filtered, allowing only the component aligned with the polarizer to continue through.
+By aligning four linear polarizers at 45-degree intervals, the degree of linear polarization (\gls{dolp}) and the angle of linear polarization (\gls{aolp}) can be determined as shown in Figure \ref{fig:polarization_calculation}.
 
+\begin{figure}[H]
 
-
-A linear polarizer can be used to filter light based on its polarization state.
-
-\begin{minipage}{.5\textwidth}
-    \begin{figure}[H]
-        \centering
+    \begin{minipage}{.5\textwidth}
+        % \begin{figure}[H]
+        % \centering
         \includegraphics[width=\textwidth]{figures/polarization_sketch.pdf}
-        \caption{The polarization ellipse \cite{inductiveloadPolarisation_ellipse22008}.}
-        \label{fig:polarization_naming}
-    \end{figure}
-\end{minipage}
-\begin{minipage}{.48\textwidth}
-    \begin{align*}
-         & I_0     &  & =a^2\cos^2\theta + b^2\sin^2\theta                                 \\
-         & I_{90}  &  & =a^2\sin^2\theta + b^2\cos^2\theta                                 \\
-         & I_{45}  &  & =a^2\cos^2(\theta+\frac{\pi}{4}) + b^2\sin^2(\theta+\frac{\pi}{4}) \\
-         & I_{135} &  & =a^2\sin^2(\theta+\frac{\pi}{4}) + b^2\cos^2(\theta+\frac{\pi}{4}) \\
-    \end{align*}
-    \begin{align*}
-         & S_0 &  & = I_0     + I_{90}  &  & = a^2+b^2          &  & \\
-         & S_1 &  & = I_0     - I_{90}  &  & =(a^2-b^2)\cos(2x) &  & \\
-         & S_2 &  & = I_{45}  - I_{135} &  & =2ab\sin(2\theta)  &  & \\
-    \end{align*}
-    \begin{align*}
-         & \theta &  & = \frac{1}{2}\arctan{\left(\frac{S_2}{S_1}\right)} \\
-    \end{align*}
-    % S_1  =  & I_0 - I_{90}                                                                                                  \\
-    % S_2  =  & I_{45} - I_{135}                                                                                              \\
-    % DoLP =                                    & \frac{\sqrt{S_1^2 + S_2^2}}{S_0}  \label{eq:dolp}                 \\
-    % AoLP = \theta =                           & \frac{1}{2} \arctan{\left(\frac{S_2}{S_1}\right)} \label{eq:aolp}
-\end{minipage}%
+        % \label{fig:polarization_naming}
+        % \end{figure}
+    \end{minipage}
+    \hspace*{1.5em}
+    \begin{minipage}{.48\textwidth}
+        \begin{flalign}
+             & \cos\theta \cdot a\cos\omega -  \sin\theta \cdot b\sin\omega  & \\
+             & =  \sqrt{a^2\cos^2\theta+b^2\sin^2\theta} \cos(\omega + \phi)
+        \end{flalign}
+        \vspace{-1em}
+        \begin{flalign}
+             & I_0     &  & =a^2\cos^2\theta + b^2\sin^2\theta                                 & \\
+             & I_{45}  &  & =a^2\cos^2(\theta-\frac{\pi}{4}) + b^2\sin^2(\theta-\frac{\pi}{4}) & \\
+             & I_{90}  &  & =a^2\sin^2\theta + b^2\cos^2\theta                                 & \\
+             & I_{135} &  & =a^2\sin^2(\theta-\frac{\pi}{4}) + b^2\cos^2(\theta-\frac{\pi}{4}) &
+        \end{flalign}
+        \vspace{-1em}
+        \begin{flalign}
+             & S_0 &  & = I_0     + I_{90}  &  & = a^2+b^2          &  & \\
+             & S_1 &  & = I_0     - I_{90}  &  & =(a^2-b^2)\cos(2x) &  & \\
+             & S_2 &  & = I_{45}  - I_{135} &  & =(a^2-b^2)\sin(2x) &  &
+        \end{flalign}
+        \vspace{-1em}
+        \begin{flalign}
+             & DoLP &  & =\frac{a^2-b^2}{a^2+b^2} &  & = \frac{\sqrt{S_1^2 + S_2^2}}{S_0}                 &  & \\
+             & AoLP &  & = \theta                 &  & = \frac{1}{2}\arctan{\left(\frac{S_2}{S_1}\right)} &  &
+        \end{flalign}
+    \end{minipage}%
+
+    \caption{Visualization of the .
+        The \label{fig:polarization_calculation}}
+\end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{figures/sensor/sensor_layout.pdf}
-    \caption{Visualization of the color polarization filter array sensor. The lines over each pixel represent the polarization filter angle.}
+    \caption{Visualization of the color polarization filter array sensor.
+        The lines over each pixel represent the polarization filter angle.}
     \label{fig:polarization_naming}
 \end{figure}
 

@@ -1,4 +1,10 @@
-\section{Polarization Properties of Reflected Light}
+\section{Polarization Cameras in the Maritime Domain}
+Light behaves as a transverse wave, with its electromagnetic field oscillating in a plane perpendicular to the direction in which it travels.
+With color filters the different frequencies of the ocsillation can be separated, and we can generate RGB images that make it easy to separate a red boat from a blue sea.
+In a similar way, linear polarization filters can be used to separate light into its different polarization directions, which gives us a new set of tools to analyze the scene.
+
+
+\subsection{Polarization Properties of Reflected Light}
 When light is reflected off a surface, its polarization state changes \cite[34]{lingUniversityPhysicsVolume2016}.
 This is illustrated in Figure \ref{fig:polarized_reflection} where the unpolarized light reflected off a surface becomes partially polarized.
 
@@ -68,9 +74,8 @@ At one particular angle of incidence, $\theta_B$, known as the Brewser angle, $R
 
 
 
-\section{Polarization of Light}
-Light behaves as a transverse wave, with its electromagnetic field oscillating in a plane that's perpendicular to the direction in which it travels.
-In the case of polarized light, these oscillations trace an elliptical path, which simplifies to a circular or straight line for pure circular or linear polarization, respectively.
+\subsection{Polarization of Light}
+In the case of polarized light, the electromagnetic oscillations trace an elliptical path, which simplifies to a circular or straight line for pure circular or linear polarization, respectively.
 When light passes through a linear polarizer, the electric field is filtered, allowing only the component aligned with the polarizer to continue through.
 By aligning four linear polarizers at 45-degree intervals, the degree of linear polarization (\gls{dolp}) and the angle of linear polarization (\gls{aolp}) can be determined as shown in Figure \ref{fig:polarization_calculation}.
 
@@ -109,16 +114,26 @@ By aligning four linear polarizers at 45-degree intervals, the degree of linear 
         \end{flalign}
     \end{minipage}%
 
-    \caption{Visualization of the .
-        The \label{fig:polarization_calculation}}
+    \caption{How four linear polarizers placed at $45^\circ$ intervals can be used to calculate the \gls{dolp} and \gls{aolp} of polarized light.\label{fig:polarization_calculation}}
 \end{figure}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/sensor/sensor_layout.pdf}
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/sensor_layout.pdf}
+        % \caption{This particular layout uses a RGGB Bayer pattern with a $90^\circ$-$45^\circ$-$135^\circ$-$0^\circ$ polarization filter subdivision.}
+    \end{subfigure}
+    \hspace{2em}
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/sensor_packaging.pdf}
+        \caption{Each group of 4\times4 pixels can be packed into a single pixel with 16 channels.}
+
+    \end{subfigure}
     \caption{Visualization of the color polarization filter array sensor.
-        The lines over each pixel represent the polarization filter angle.}
-    \label{fig:polarization_naming}
+        This layout uses a RGGB Bayer pattern with a $90^\circ$-$45^\circ$-$135^\circ$-$0^\circ$ polarization filter subdivision.
+        \label{fig:polarization_naming}}
+
 \end{figure}
 
 \begin{figure}[H]

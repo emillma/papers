@@ -42,14 +42,9 @@ Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\l
 Inserting the refractive index of air, $n_1 = 1$, and the refractive index of water, $n_2 = 1.33$, the reflectance can be calculated and plotted as a function of the angle of incidence, $\theta_1$, alone as shown in Figure \ref{fig:brewster0}.
 The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two polarizations components.
 The \gls{dolp} is plotted in Figure \ref{fig:brewster1}.
-
-\begin{align}
-    DoLP= & \frac{\left | R_\perp - R_\parallel \right |}{R_\perp + R_\parallel}
-\end{align}
-
 At one particular angle of incidence, $\theta_B$, known as the Brewser angle, $R_\parallel$ becomes zero, and the reflected light is completely s-polarized \cite{BrewsterAngle2024}:
 \begin{align}
-    \theta_B & = \arctan{\frac{n_2}{n_1}} & \theta^{air}_{Bwater} & = \arctan{\frac{1.33}{1}} = 53.06^\circ
+    \theta_B & = \arctan{\frac{n_2}{n_1}} & DoLP= & \frac{\left | R_\perp - R_\parallel \right |}{R_\perp + R_\parallel}
 \end{align}
 
 \begin{figure}[H]
@@ -81,64 +76,72 @@ By aligning four linear polarizers at 45-degree intervals, the degree of linear 
 
 \begin{figure}[H]
 
-    \begin{minipage}{.5\textwidth}
+    \begin{minipage}{.48\textwidth}
         % \begin{figure}[H]
         % \centering
         \includegraphics[width=\textwidth]{figures/polarization_sketch.pdf}
         % \label{fig:polarization_naming}
-        % \end{figure}
+        % \end{figure} 
     \end{minipage}
-    \hspace*{1.5em}
+    \hfill
     \begin{minipage}{.48\textwidth}
-        \begin{flalign}
-             & \cos\theta \cdot a\cos\omega -  \sin\theta \cdot b\sin\omega  & \\
-             & =  \sqrt{a^2\cos^2\theta+b^2\sin^2\theta} \cos(\omega + \phi)
-        \end{flalign}
-        \vspace{-1em}
-        \begin{flalign}
-             & I_0     &  & =a^2\cos^2\theta + b^2\sin^2\theta                                 & \\
-             & I_{45}  &  & =a^2\cos^2(\theta-\frac{\pi}{4}) + b^2\sin^2(\theta-\frac{\pi}{4}) & \\
-             & I_{90}  &  & =a^2\sin^2\theta + b^2\cos^2\theta                                 & \\
-             & I_{135} &  & =a^2\sin^2(\theta-\frac{\pi}{4}) + b^2\cos^2(\theta-\frac{\pi}{4}) &
-        \end{flalign}
-        \vspace{-1em}
-        \begin{flalign}
-             & S_0 &  & = I_0     + I_{90}  &  & = a^2+b^2          &  & \\
-             & S_1 &  & = I_0     - I_{90}  &  & =(a^2-b^2)\cos(2x) &  & \\
-             & S_2 &  & = I_{45}  - I_{135} &  & =(a^2-b^2)\sin(2x) &  &
-        \end{flalign}
-        \vspace{-1em}
-        \begin{flalign}
-             & DoLP &  & =\frac{a^2-b^2}{a^2+b^2} &  & = \frac{\sqrt{S_1^2 + S_2^2}}{S_0}                 &  & \\
-             & AoLP &  & = \theta                 &  & = \frac{1}{2}\arctan{\left(\frac{S_2}{S_1}\right)} &  &
-        \end{flalign}
+        \begin{alignat}{3}
+             & \mathrlap{\cos\theta \cdot a\cos t -  \sin\theta \cdot b\sin t}                &
+             &                                                                                &
+             &                                                                                  \\
+             &                                                                                &
+             & = \mathrlap{\sqrt{a^2\cos^2\theta+b^2\sin^2\theta} \cos(\omega + \phi)}        &
+             &                                                                                  \\[1em]
+             & I_0                                                                            &
+             & = \mathrlap{a^2\cos^2\theta + b^2\sin^2\theta                                } &
+             &                                                                                  \\
+             & I_{45}                                                                         &
+             & = \mathrlap{a^2\cos^2(\theta-\frac{\pi}{4}) + b^2\sin^2(\theta-\frac{\pi}{4})} &
+             &                                                                                  \\
+             & I_{90}                                                                         &
+             & = \mathrlap{a^2\sin^2\theta + b^2\cos^2\theta                                } &
+             &                                                                                  \\
+             & I_{135}                                                                        &
+             & = \mathrlap{a^2\sin^2(\theta-\frac{\pi}{4}) + b^2\cos^2(\theta-\frac{\pi}{4})} &
+             &                                                                                  \\[1em]
+             & S_0                                                                            &
+             & = I_0 + I_{90}                                                                 &
+             & = a^2+b^2                                                                        \\
+             & S_1                                                                            &
+             & = I_0 - I_{90}                                                                 &
+             & =(a^2-b^2)\cos(2x)                                                               \\
+             & S_2                                                                            &
+             & = I_{45} - I_{135}                                                             &
+             & =(a^2-b^2)\sin(2x)                                                               \\[1em]
+             & DoLP                                                                           &
+             & =\frac{a^2-b^2}{a^2+b^2}                                                       &
+             & = \frac{\sqrt{S_1^2 + S_2^2}}{S_0}                                               \\
+             & AoLP                                                                           &
+             & =  \theta                                                                      &
+             & = \frac{1}{2}\arctan{\left(\frac{S_2}{S_1}\right)}
+        \end{alignat}
     \end{minipage}%
 
-    \caption{How four linear polarizers placed at $45^\circ$ intervals can be used to calculate the \gls{dolp} and \gls{aolp} of polarized light.\label{fig:polarization_calculation}}
+    \caption{How four linear polarizers placed at $45^\circ$ intervals can be used to calculate the \gls{dolp} and \gls{aolp} of polarized light. The intensities  \label{fig:polarization_calculation}}
 \end{figure}
 
 \begin{figure}[H]
-    \begin{subfigure}{.5\textwidth}
-        \centering
+    \begin{subfigure}[T]{.48\textwidth}
         \includegraphics[width=\textwidth]{figures/sensor_layout.pdf}
-        % \caption{This particular layout uses a RGGB Bayer pattern with a $90^\circ$-$45^\circ$-$135^\circ$-$0^\circ$ polarization filter subdivision.}
-    \end{subfigure}
-    \hspace{2em}
-    \begin{subfigure}{.5\textwidth}
-        \centering
+        \caption{A 12\times12 slice of the color polarization filter array sensor. \label{fig:cpfa}}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[T]{.48\textwidth}
         \includegraphics[width=\textwidth]{figures/sensor_packaging.pdf}
-        \caption{Each group of 4\times4 pixels can be packed into a single pixel with 16 channels.}
-
+        \caption{The 12\times12 raw data from \ref{fig:cpfa}) can be reordered as a 3\times3 image with 16 channels.}
     \end{subfigure}
-    \caption{Visualization of the color polarization filter array sensor.
-        This layout uses a RGGB Bayer pattern with a $90^\circ$-$45^\circ$-$135^\circ$-$0^\circ$ polarization filter subdivision.
+    \caption{Visualization of a color polarization filter array sensor with a RGGB Bayer pattern and a $90^\circ$ $45^\circ$ $135^\circ$ $0^\circ$ polarization filter subdivision.
         \label{fig:polarization_naming}}
-
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/cmap/aolp_dolp_cmap.pdf}
+    \includegraphics[width=0.4\textwidth]{figures/cmap/aolp_dolp_cmap.pdf}
     \caption{Visualization of \gls{dolp} and \gls{aolp}}
 \end{figure}
 

@@ -133,7 +133,8 @@ By aligning four linear polarizers at 45-degree intervals, the degree of linear 
     \hfill
     \begin{subfigure}[T]{.48\textwidth}
         \includegraphics[width=\textwidth]{figures/sensor_packaging.pdf}
-        \caption{The 12\times12 raw data from \ref{fig:cpfa}) can be reordered as a 3\times3 image with 16 channels.}
+        \caption{The 12\times12 raw data from \ref{fig:cpfa}) can be reordered as a 3\times3 image with 16 channels.
+            \label{fig:cpfa_reorder}}
     \end{subfigure}
     \caption{Visualization of a color polarization filter array sensor with a RGGB Bayer pattern and a $90^\circ$ $45^\circ$ $135^\circ$ $0^\circ$ polarization filter subdivision.
         \label{fig:polarization_naming}}
@@ -147,7 +148,8 @@ By aligning four linear polarizers at 45-degree intervals, the degree of linear 
 
 \subsection*{Debayering}
 There are other more advanced methods but a simple convolution works.
-
+We propose to a general way to work with data from a color polarization filter array sensor.
+As shown in Figure \ref{fig:cpfa_reorder}, an $n \times n$ raw image can be reordered as a $(n/4) \times (n/4) $ image with 16 channels.
 
 
 % \section{Debayering of Color Polarization Images}

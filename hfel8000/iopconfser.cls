@@ -40,7 +40,7 @@
 
 \pagestyle{empty}
 
-\renewcommand{\title}[1]{\vspace*{25mm}{\exhyphenpenalty=10000\hyphenpenalty=10000
+\renewcommand{\title}[1]{\vspace*{0mm}{\exhyphenpenalty=10000\hyphenpenalty=10000
         \fontsize{18bp}{24bp}\selectfont\bf\noindent\raggedright
         \textsf{#1}\par}}
 

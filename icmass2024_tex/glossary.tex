@@ -3,11 +3,14 @@
 \setabbreviationstyle[acronym]{long-postshort-user}
 \glssetcategoryattribute{acronym}{nohyperfirst}{true}
 \setabbreviationstyle{short-nolong}
+\makeglossaries
 
 % --------------------
 % ---- Glossaries ----
 % --------------------
 \newglossaryentry{asyncio}{name=Asyncio, description={A Python library for asynchronous code.}}
+\newglossaryentry{stim}{name=STIM300, description={A MEMS-based \gls{imu}}}
+\newglossaryentry{f9p}{name=F9P, description={A Global Navigation Satellite System (GNSS) receiver manufactured by u-blox.}}
 
 % --------------------
 % ----- Acronyms -----
@@ -18,13 +21,22 @@
 \newacronym{sitaw}{SITAW}{Situational Awareness}
 \newacronym{poe}{PoE}{Power over Ethernet}
 \newacronym{pps}{PPS}{Pulse Per Second}
+\newacronym{cpfa}{CPFA}{Color-Polarization Filter Array}
+\newacronym{utc}{UTC}{Coordinated Universal Time}
+\newacronym{imu}{IMU}{Inertial Measurement Unit}
+\newacronym{tov}{TOV}{Time of Validity}
+\newacronym{tm2}{TM2}{Time mark data}
+\newacronym{gnss}{GNSS}{Global Navigation Satellite System}
+\newacronym{ptp}{PTP}{Precision Time Protocol}
 
-\glsaddall
-\makeglossaries
+% \glsaddall
+% \makenoidxglossaries
 
 % \glsunset{cpu}
-% \glsunset{gpu}
-% \glsunset{lla}
+\glsunset{gnss}
+\glsunset{imu}
+\glsunset{tm2}
+\glsunset{utc}
 
 % --------------------
 % ----- Shortcuts ----

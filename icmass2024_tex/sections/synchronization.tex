@@ -1,7 +1,11 @@
 \section*{Synchronization}
+The \gls{imu} samples at a fixed frequency following an internal clock \cite{safranSTIM300Datasheet}.
+When a trigger signal is received, the \gls{imu} sends the latest available data, together with the trigger count and the delay between the trigger and the time of capture \cite{safranSTIM300Datasheet}.
+At a varying interval, a trigger signal is sent to the \gls{imu} and a \gls{f9p} receiver simultaneously, causing the \gls{f9p} to log the time of the trigger \cite[190]{u-bloxZEDF9PInterfaceDescription}.
+This message is used to synchronize the \gls{imu} to \gls{utc}.
+By systematically varying the interval and delaying the trigger signal by a couple of microseconds the association of the \gls{imu} message to the \gls{tm2} message is ensured.
 
-\subsection*{Computer}
-Compiling Linux Kernel
+The cameras support \gls{ptp} synchronization, but
 
 
 \subsection*{IMU}

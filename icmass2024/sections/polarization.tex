@@ -3,9 +3,6 @@ Light behaves as a transverse wave, with its electromagnetic field oscillating i
 Similar to how color filters are used to separate different oscillation frequencies, i.e. colors, of light, polarization filters can be used to separate different oscillation directions, i.e. polarizations, of light.
 This gives us a new set of tools to analyze the scene, which is be particularly useful in the maritime domain where the water surface is a reflective surface with a distinct polarization signature.
 
-\subsection{Polarization Properties of Reflected Light}
-When light is reflected off a surface, its polarization state changes \cite[34]{lingUniversityPhysicsVolume2016}.
-This is illustrated in Figure \ref{fig:polarized_reflection} where the unpolarized light reflected off a surface becomes partially polarized.
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\linewidth]{figures/polarization/reflaction.png}
@@ -14,30 +11,31 @@ This is illustrated in Figure \ref{fig:polarized_reflection} where the unpolariz
     \label{fig:polarized_reflection}
 \end{figure}
 
-
-Unpolarized light can be described as a sum of two orthogonal linear polarizations $R_\perp$ and $R_\parallel$, where $R_\perp$ is perpendicular to the plane of incidence and $R_\parallel$ is parallel to the plane of incidence  \cite{FresnelEquations2024}.
-These two components are referred to as s-polarized and p-polarized light, respectively.
-Their reflection coefficients differ and are given by the Fresnel equations below \cite{FresnelEquations2024}:
+\subsection{Polarization Properties of Reflected Light}
+When light reflects off a surface, its polarization changes \cite[34]{lingUniversityPhysicsVolume2016}.
+This effect is illustrated in Figure \ref{fig:polarized_reflection} where the unpolarized light reflected off a surface becomes partially polarized.
+Unpolarized light can be described as a sum of two orthogonal linear polarizations $R_\perp$ and $R_\parallel$, where $R_\perp$ is perpendicular to the plane of incidence and $R_\parallel$ is parallel to the plane of incidence \cite{FresnelEquations2024}.
+These two components are referred to as s-polarized and p-polarized light, respectively, and their reflection coefficients are given by the Fresnel equations below \cite{FresnelEquations2024}:
 
 \begin{align}
-    R_\perp =         & \left|{\frac {n_{1}\cos \theta _1-n_{2}\cos \theta _2}{n_{1}\cos \theta _1+n_{2}\cos \theta _2}}\right|^{2}
-                      & 
-    R_\parallel     = & \left|{\frac {n_{1}\cos \theta _2-n_{2}\cos \theta _1}{n_{1}\cos \theta _2+n_{2}\cos \theta _1}}\right|^{2}
+    R_\perp =     & \left|{\frac {n_{1}\cos \theta _1-n_{2}\cos \theta _2}{n_{1}\cos \theta _1+n_{2}\cos \theta _2}}\right|^{2}
+                  & 
+    R_\parallel = & \left|{\frac {n_{1}\cos \theta _2-n_{2}\cos \theta _1}{n_{1}\cos \theta _2+n_{2}\cos \theta _1}}\right|^{2}
 \end{align}
 
-Where  $\eta_1$ and $\eta_2$ are the refractive indices of the two media,
+Where  $\eta_1$ and $\eta_2$ are the refractive indices of the two media,
 $\theta_i$ is the angle of incidence and $\theta_r$ is the angle of refraction.
 Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\left(\theta_2 \right)}$ and Snell's law $\eta_1 \sin{\left(\theta_1 \right)} = \eta_2 \sin{\left(\theta_2 \right)}$ the angle of refraction, $\theta_2$ can be removed, and the equations can be rewritten as:
 
 \begin{align}
-    R_\perp =         & \left|{\frac {n_{1}\cos \theta _1-n_{2}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}}{n_{1}\cos \theta _1+n_{2}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}}}\right|^{2}
-                      & 
-    R_\parallel     = & \left|{\frac {n_{1}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}-n_{2}\cos \theta _1}{n_{1}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}+n_{2}\cos \theta _1}}\right|^{2}
+    R_\perp =     & \left|{\frac {n_{1}\cos \theta _1-n_{2}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}}{n_{1}\cos \theta _1+n_{2}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}}}\right|^{2}
+                  & 
+    R_\parallel = & \left|{\frac {n_{1}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}-n_{2}\cos \theta _1}{n_{1}{\sqrt {1-\left({\frac {n_{1}}{n_{2}}}\sin \theta _1\right)^{2}}}+n_{2}\cos \theta _1}}\right|^{2}
 \end{align}
 
 
 Inserting the refractive index of air, $n_1 = 1$, and the refractive index of water, $n_2 = 1.33$, the reflectance can be calculated and plotted as a function of the angle of incidence, $\theta_1$, alone as shown in Figure \ref{fig:brewster0}.
-The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two polarizations components.
+The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two polarization components.
 The \gls{dolp} is plotted in Figure \ref{fig:brewster1}.
 At one particular angle of incidence, $\theta_B$, known as the Brewser angle, $R_\parallel$ becomes zero, and the reflected light is completely s-polarized \cite{BrewsterAngle2024}:
 \begin{align}
@@ -115,12 +113,12 @@ By aligning four linear polarizers at 45-degree intervals, the \glsfirst{dolp} a
         \end{alignat}
     \end{minipage}%
     
-    \caption{How four linear polarizers placed at $45^\circ$ intervals can be used to calculate the \gls{dolp} and \gls{aolp} of polarized light. The intensities  \label{fig:polarization_calculation}}
+    \caption{How four linear polarizers placed at $45^\circ$ intervals can be used to calculate the \gls{dolp} and \gls{aolp} of polarized light. \label{fig:polarization_calculation}}
 \end{figure}
 
 \section{Polarization Cameras}
 The sensor rig is equipped with two TRI050S1-QC cameras from Lucid Vision Labs.
-The cameras are have a 5MP \gls{cpfa} sensor, depicted in Figure \ref{fig:cpfa}, capabale of capturing both color and polarization information.
+The cameras use a 5MP \gls{cpfa} sensor from Sony, depicted in Figure \ref{fig:cpfa}, capabale of capturing both color and polarization information.
 
 \begin{figure}[H]
     \begin{subfigure}[B]{.48\textwidth}
@@ -136,9 +134,9 @@ The cameras are have a 5MP \gls{cpfa} sensor, depicted in Figure \ref{fig:cpfa},
     \caption{A 12\times12 slice of the \gls{cpfa} used in TRI050S1-QC cameras \cite{lucidvisionlabsTritonMPPolarized2020}, and how the the data can be reorderd as a 3\times3 image with 16 channels. \label{fig:polarization_sensor}}
 \end{figure}
 
-\subsection{A Simple Color-Polarization Demosaicking Approach}
-Similar to how color demosacking is used to estimate the missing color channels from a Bayer filter array sensor, color-polarization demosaicking is needed to estimate the missing polarization channels from a \gls{cpfa} sensor.
-Several methods already exists for performing accurate color-polarization demosaicking \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}\cite{nguyenTwoStepColorPolarizationDemosaicking2022a}, but we propose a simple linear method that can be implemented as a single convolutional layer.
+% \subsection{A Simple Color-Polarization Demosaicking Approach}
+Similar to how debayering is used to estimate the missing color channels from a Bayer filter, color-polarization demosaicking is used to estimate the missing polarization channels from a \gls{cpfa} sensor.
+Several methods already exists for performing accurate color-polarization demosaicking \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}\cite{nguyenTwoStepColorPolarizationDemosaicking2022a}, but we propose a simple linear method that can be implemented with a single convolutional layer.
 The method estimates $S0$, $S1$, and $S2$ for each color channel at every pixel, i.e. it transforms the $n \times m \times 1$ raw \gls{cpfa} image into a $n \times m \times 9$ image.
 
 First the raw \gls{cpfa} input image is permuted into a $(n/4) \times (m/4) \times 16$ image, where the 16 channels correspond to the different color and polarization filters as depicted in Figure \ref{fig:cpfa_reorder}.
@@ -160,7 +158,6 @@ To simulate raw \gls{cpfa} images we slect the channel for each pixel with the s
 
 To increase the size of the dataset, we used all 16 possible placements of the virtual \gls{cpfa} on each image, by shifting the images up to 3 pixels in each direction.
 We also augmented the dataset by flipping the images horizontally and vertically.
-Without acces to the exact testing setup used from more advenced methods, we can not say exactly how well our method performs in comparison, but
 
 
 \begin{figure}[H]
@@ -185,7 +182,7 @@ Without acces to the exact testing setup used from more advenced methods, we can
         \vspace{1em}
         \caption{Colormap}
     \end{subfigure}
-    \caption{Visualization of an image captured with a color polarization filter array sensor. Note how the polarization information facilitates detection of the small vessel.}
+    \caption{Visualization of an image captured with a color polarization filter array sensor. Note how the polarization information facilitates detection of the small unmanned vessel.}
 \end{figure}
 
 

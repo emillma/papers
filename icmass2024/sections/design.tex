@@ -5,6 +5,8 @@ Except for the waterproof enclosure and the two carbon fiber tubes, all the mech
 The various parts are designed to clamp on to the 30mm carbon fiber tubes and friction tape is used to ensure a tight fit.
 This makes it easy to extend the rig with additional sensors or design various clamping brackets for attaching the rig to different vessels.
 An IP67 rated waterproof enclosure is used to protect the internal electronics from the elements, allowing for operation in different weather conditions.
+The components inside the enclosure are mounted on two detatchable 3D printed plates that are locket in place by a wedge system, making it easy to remove and replace the components if neded.
+Both the wieght and cost of the sensor rig is dominated by the coice of components, which can be adjusted to fit the needs of the user.
 
 \begin{figure}[H]
     \centering
@@ -13,13 +15,13 @@ An IP67 rated waterproof enclosure is used to protect the internal electronics f
 \end{figure}
 
 \subsection{Components}
-One TRI050S1-QC polarization camera and one TOP106 L1/L2 GNSS antenna is mounted on each side of the sensor rig to provide wide baseline stereo video and differential GNSS data for accurate heading estimation.
+In its current configuration, one TRI050S1-QC polarization camera and one TOP106 L1/L2 GNSS antenna is mounted on each side of the sensor rig to provide wide baseline stereo video and differential GNSS data for accurate heading estimation.
 The cameras have a 2/3" global shutter sensor with a $2448\times2048$ resolution, are equipped with a 8mm lense, and configured to capture 12-bit raw images at 12fps.
 Inside the waterproof enclosure an Nvidia Jetson Orin AGX serves as the main processing unit.
 The Jetson is a single board computer designed for edge computing with a dedicated GPU, GPIO and multiple dedicated hardware for video processing and AI \cite{karumbunathanNVIDIAJetsonAGX2022}.
 An external network card is connected to the Jetson through its PCIe slot and provedes 4 separate 1Gb/s ethernet ports with \gls{poe} to power and communicate with the cameras over a single cable.
 Two F9P GNSS receivers and a STIM300 \gls{imu} provide the sensor data required for accurate pose estimation.
-With a 100wh power bank, the sensor rig can record data for approximately 5 hours before needing a battery change.
+With a 100wh detatchable power bank, the sensor rig can record data for approximately 5 hours before needing a battery change.
 
 \begin{figure}[H]
     \centering

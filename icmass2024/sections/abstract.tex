@@ -4,14 +4,33 @@
     High-quality data sets from relevant maritime environments are needed to advance the development of \gls{sitaw}, as it is both the backbone of any learning-based method and the development and validation of classical methods.
     Research vessels such as the full-scale ferry \textit{milliAmpere2} provide such data, but there tends to be a considerable labor cost associated with their operation.
     With this in mind, we have developed a portable sensor rig that makes collecting sensor data significantly easier.
-    
+
     The sensor rig is designed for easy transport and operation by a single individual but can also temporarily attach an existing vessel, making it versatile for a wide range of data collection scenarios.
-    The sensor rig is equipped with a Jetson Orin AGX computer, two dual-band GNSS receivers, a high-quality IMU, and two polarization cameras.
+    The sensor rig is equipped with a Jetson Orin AGX computer, two dual-band GNSS receivers, a high-quality IMU, and two color polarization cameras.
     Accurate synchronization of all sensors and the computer to \gls{utc} is achieved using a microcontroller for triggering and a custom PPS-enabled Linux kernel for the Jetson.
     The sensor rig is controlled and monitored by connecting a smartphone to its hosted web app, which provides a live stream from the cameras and information about the sensors.
-    
-    We present a new data set from the river Nidelva in Trondheim, Norway, to demonstrate the sensor rig's potential and the benefit of polarization cameras in the maritime domain.
-    We show how the data from polarization cameras can be used directly to make the water surface more visibly distinct and remove reflections and sun glare.
-    This new data set consists of synchronized stereo polarization video, raw IMU data, and raw GNSS data, and it will be made publically available to the research community at the conference.
-    
+
+    We present a new data set from the river Nidelva in Trondheim, Norway, to demonstrate the sensor rig's potential and the benefit of color polarization cameras in the maritime domain.
+    We show how the data from color polarization cameras can be used directly to make the water surface more visibly distinct and remove reflections and sun glare.
+    This new data set consists of synchronized stereo color polarization video, raw IMU data, and raw GNSS data, and it will be made publically available to the research community at the conference.
+
 \end{abstract}
+
+\pagebreak
+
+\section{Introduction}
+\glspl{asv} have received attention in recent years and several vessels have been built for research, such as \textit{Milliampere}, \textit{Milliampere 2} and \textit{Maverick} \cite{brekkeMilliAmpereAutonomousFerry2022}\cite{zhangDesignBuildAutonomous2023}\cite{eideAutonomousUrbanPassenger2024}.
+To operate autonomously, these vehicles are all equipped with multiple sensors to perceive their environment, acheive \gls{sitaw} and make informed decisions.
+The choice of sensors play a cruical role in the design, development and operation of \glspl{asv} and there is wide range of types and models to pick from on the market \cite{thombreSensorsAITechniques2022}.
+To advance the the development of \glspl{asv} it is therefor important to have acces to data collected from various combinations  of sensors in relevant maritime environments.
+The data collected from research vessels are valuable for this purpose, and necessery for many types of research.
+Unfortunately, collecting data this way generally involves multiple people and is is limited to when the \gls{asv} is operational.
+Varying the types and placement of sensors on the vessels, and calibrating them, is also generally impractical.
+
+To make data collection easier we have developed a lightweight sensor rig designed to be carried and operated by a single person, or be temporarily attached to an existing vessel \cite{martensPavingWayEnhanced2023}.
+It is not intended as a replacement for research vessels, but rather as a complement for any research group working on \gls{sitaw} for \glspl{asv} to augment the data collection capabilities.
+With the development of the sensor rig we decided to use the oppertunity to explore the potential of color polarization cameras in the maritime domain, which were not mentioned in the otherwise comprehensive review of sensors for \gls{sitaw} by Thombre et al. \cite{thombreSensorsAITechniques2022}.
+Monochome polarzation cameras have been used for both maritime target recognition and maritime image dehazing, but it appears like the use of color polarization cameras in the maritime domain appear relatively unexplored \cite{zhongPolarizationintensityJointImaging2023}\cite{maPolarizationBasedMethodMaritime2024}.
+
+In this paper we give an introduction to the theory behind why polarization cameras are useful in the maritime domain, present the design and current configuration of the sensor rig and present a novel data set collected with the sensor rig to demonstrate its potential.
+

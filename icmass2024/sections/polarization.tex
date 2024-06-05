@@ -14,8 +14,8 @@ This gives us a new set of tools to analyze the scene, which is be particularly 
 \subsection{Polarization Properties of Reflected Light}
 When light reflects off a surface, its polarization changes \cite[34]{lingUniversityPhysicsVolume2016}.
 This effect is illustrated in Figure \ref{fig:polarized_reflection} where the unpolarized light reflected off a surface becomes partially polarized.
-Unpolarized light can be described as a sum of two orthogonal linear polarizations $R_\perp$ and $R_\parallel$, where $R_\perp$ is perpendicular to the plane of incidence and $R_\parallel$ is parallel to the plane of incidence \cite{FresnelEquations2024}.
-These two components are referred to as s-polarized and p-polarized light, respectively, and their reflection coefficients are given by the Fresnel equations below \cite{FresnelEquations2024}:
+Unpolarized light can be described as a sum of two orthogonal linear polarizations $R_\perp$ and $R_\parallel$, where $R_\perp$ is perpendicular to the plane of incidence and $R_\parallel$ is parallel to the plane of incidence.
+These two components are referred to as s-polarized and p-polarized light, respectively, and their reflection coefficients are given by the Fresnel equations below:
 
 \begin{align}
     R_\perp =     & \left|{\frac {n_{1}\cos \theta _1-n_{2}\cos \theta _2}{n_{1}\cos \theta _1+n_{2}\cos \theta _2}}\right|^{2}
@@ -37,7 +37,7 @@ Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\l
 Inserting the refractive index of air, $n_1 = 1$, and the refractive index of water, $n_2 = 1.33$, the reflectance can be calculated and plotted as a function of the angle of incidence, $\theta_1$, alone as shown in Figure \ref{fig:brewster0}.
 The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two polarization components.
 The \gls{dolp} is plotted in Figure \ref{fig:brewster1}.
-At one particular angle of incidence, $\theta_B$, known as the Brewser angle, $R_\parallel$ becomes zero, and the reflected light is completely s-polarized \cite{BrewsterAngle2024}:
+At one particular angle of incidence, $\theta_B$, known as the Brewser angle, $R_\parallel$ becomes zero, and the reflected light is completely s-polarized:
 \begin{align}
     \theta_B & = \arctan{\frac{n_2}{n_1}} & DoLP= & \frac{\left | R_\perp - R_\parallel \right |}{R_\perp + R_\parallel}
 \end{align}
@@ -136,10 +136,10 @@ The cameras use a 5MP \gls{cpfa} sensor from Sony, depicted in Figure \ref{fig:c
 
 % \subsection{A Simple Color-Polarization Demosaicking Approach}
 Similar to how debayering is used to estimate the missing color channels from a Bayer filter, color-polarization demosaicking is used to estimate the missing polarization channels from a \gls{cpfa} sensor.
-Several methods already exists for performing accurate color-polarization demosaicking \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}\cite{nguyenTwoStepColorPolarizationDemosaicking2022a}, but we propose a simple linear method that can be implemented with a single convolutional layer.
+Several methods already exist for performing accurate color-polarization demosaicking \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}\cite{nguyenTwoStepColorPolarizationDemosaicking2022a}, but we propose a simple linear method that can be implemented with a single convolutional layer.
 The method estimates $S0$, $S1$, and $S2$ for each color channel at every pixel, i.e. it transforms the $n \times m \times 1$ raw \gls{cpfa} image into a $n \times m \times 9$ image.
 
-First the raw \gls{cpfa} input image is permuted into a $(n/4) \times (m/4) \times 16$ image, where the 16 channels correspond to the different color and polarization filters as depicted in Figure \ref{fig:cpfa_reorder}.
+First, the raw \gls{cpfa} input image is permuted into a $(n/4) \times (m/4) \times 16$ image, where the 16 channels correspond to the different color and polarization filters as depicted in Figure \ref{fig:cpfa_reorder}.
 This can be done by the following tensor operations:
 \begin{figure}[H]
     \centering
@@ -151,12 +151,12 @@ A custom CUDA kernel was written to unpack raw camera data and perform this perm
 Then a single convolutional layer is applied to obtain a $(n/4)*(m/4)*144$ image.
 Finally, the image is permuted back to a $n \times m \times 9$ image by reversing the operations in Figure \ref{fig:reorder_operations}.
 
-Using a kernel size of 5 the convolutional layer has $144\times16\times5\times5=57600$ weights.
-Since we only use a single convolution operation, the transformation is linear and we can find the least square solution directly, without the use of gradient descent.
-The weights were fitted to the The Tokyo Tech dataset, a 12-channel (3 colors \times 4 angles) color-polarization image dataset with 40 scenes \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}.
-To simulate raw \gls{cpfa} images we slect the channel for each pixel with the same color and polarization angle as the corresponding pixel in the \gls{cpfa} image.
+With a kernel size of 5, the convolutional layer has $144\times16\times5\times5=57600$ weights.
+Since we only use a single convolution operation, the transformation is linear, and we can find the least square solution directly without the use of gradient descent.
+The weights were fitted to the Tokyo Tech dataset, a 12-channel (3 colors \times 4 angles) color-polarization image dataset with 40 scenes \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}.
+To simulate raw \gls{cpfa} images, we select the channel for each pixel with the same color and polarization angle as the corresponding pixel in the \gls{cpfa} image.
 
-To increase the size of the dataset, we used all 16 possible placements of the virtual \gls{cpfa} on each image, by shifting the images up to 3 pixels in each direction.
+To increase the size of the dataset, we used all 16 possible placements of the virtual \gls{cpfa} on each image by shifting the images up to 3 pixels in each direction.
 We also augmented the dataset by flipping the images horizontally and vertically.
 
 

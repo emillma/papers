@@ -96,5 +96,6 @@
     mincitenames=1,
     citestyle=numeric-comp,
     sorting=none,
+    url=false,
     dashed=false
 ]{biblatex}                                 % for bibliography

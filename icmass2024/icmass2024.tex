@@ -8,10 +8,12 @@
 \usepackage{mathtools}
 \usepackage[automake]{glossaries-extra}
 
+\DefineBibliographyStrings{english}{
+  url         = Available ,
+}
 
 \input{glossary.tex}
 \addbibresource{mylib.bib}
-
 
 \begin{document}
 
@@ -28,18 +30,17 @@
 
 \input{sections/abstract.tex}
 
-\pagebreak 
 \input{sections/polarization.tex}
 \input{sections/design.tex}
 \input{sections/synchronization.tex}
 
 
 \input{sections/dataset.tex}
-
+\input{sections/conclusion.tex}
 
 % \printglossary[type=\acronymtype]
 % \printglossary
-
+\pagebreak
 \printbibliography
 
 

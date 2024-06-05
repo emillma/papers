@@ -1,17 +1,17 @@
 \begin{abstract}
     \justifying
-    \gls{sitaw} of \glsps{asv} is critical for safe and efficient maritime operations, enabling these vehicles to better understand their environment and make informed decisions.
-    High-quality data sets from relevant maritime environments are needed to advance the development of \gls{sitaw}, as it is both the backbone of any learning-based method as well as the development and validation of classical methods.
-    Research vessels like the full-scale ferry \textit{milliAmpere2} provide such data, but there tends to be a considerable labor cost associated with their operation, and they are not always available on demand.
-    To address these challenges, a stand-alone lightweight sensor rig has been developed to facilitate the collection of high-quality data sets and to showcase the potential of polarization cameras in the maritime domain.
-    The sensor rig is designed for easy transport and operation by a single individual or for temporary attachment to any existing vessel, making it versatile for a wide range of data collection scenarios.
-    It is equipped with a Jetson Orin AGX computer, two dual-band GNSS receivers, a high-grade IMU, and two polarization cameras.
-    Emphasis has been put on precisely synchronizing all devices using a microcontroller and a custom Linux kernel configuration supporting \gls{pps} synchronization.
-    Stereo polarization video is collected, preprocessed, and compressed in real-time using CUDA C++ and GStreamer. This makes it possible to preview the video feeds wirelessly through a custom web-based GUI from a nearby phone or computer.
-
-    To demonstrate the potential of the sensor rig and the benefit of polarization cameras in the maritime domain, we present a new data set from the river Nidelva in Trondheim, Norway.
-    We show how the new information from the polarization cameras can be used to remove sun glare and improve water surface segmentation by leveraging the physical properties of the polarization of water reflections.
-    This new data set consists of synchronized stereo polarization video, raw IMU data, and raw GNSS data and will be made publically available to the research community with the conference.
-
-
+    \gls{sitaw} of \glsps{asv} is critical for safe and efficient maritime operations, enabling these vehicles to understand their environment better and make informed decisions.
+    High-quality data sets from relevant maritime environments are needed to advance the development of \gls{sitaw}, as it is both the backbone of any learning-based method and the development and validation of classical methods.
+    Research vessels such as the full-scale ferry \textit{milliAmpere2} provide such data, but there tends to be a considerable labor cost associated with their operation.
+    With this in mind, we have developed a portable sensor rig that makes collecting sensor data significantly easier.
+    
+    The sensor rig is designed for easy transport and operation by a single individual but can also temporarily attach an existing vessel, making it versatile for a wide range of data collection scenarios.
+    The sensor rig is equipped with a Jetson Orin AGX computer, two dual-band GNSS receivers, a high-quality IMU, and two polarization cameras.
+    Accurate synchronization of all sensors and the computer to \gls{utc} is achieved using a microcontroller for triggering and a custom PPS-enabled Linux kernel for the Jetson.
+    The sensor rig is controlled and monitored by connecting a smartphone to its hosted web app, which provides a live stream from the cameras and information about the sensors.
+    
+    We present a new data set from the river Nidelva in Trondheim, Norway, to demonstrate the sensor rig's potential and the benefit of polarization cameras in the maritime domain.
+    We show how the data from polarization cameras can be used directly to make the water surface more visibly distinct and remove reflections and sun glare.
+    This new data set consists of synchronized stereo polarization video, raw IMU data, and raw GNSS data, and it will be made publically available to the research community at the conference.
+    
 \end{abstract}

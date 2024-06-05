@@ -24,15 +24,17 @@ With a 100wh power bank, the sensor rig can record data for approximately 5 hour
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/operation.jpg}
-    \caption{Human operation of the sensor rig. Ergonomic handles ensure comfort and the operator can control and monitor the acquisition through a phone over the phone's mobile hotspot.}
+    \caption{Human operation of the sensor rig. Ergonomic handles ensure comfort and the operator can control and monitor the acquisition through a phone over the phone's mobile hotspot. \label{fig:operation}}
 \end{figure}
 
 \subsection{Control and Monitoring}
-The sensor rig hosts a web app that allows the operator to control and monitor the data acquisition from their smartphone.
-The web app is built using SvelteKit and TailwindCSS with simplicity in mind, removing the need
+The sensor rig hosts a web app that allows the operator to control and monitor the data acquisition from their smartphone, as depicted in Figure \ref{fig:operation}.
+The web app is built with SvelteKit and communicates with the different programs running on the Jetson through websockets.
 From the app the operator can start and stop the aquisition, incoming data from the different sensors and view a live stream from the cameras.
 The app also provides information from the Jetson such as CPU temperature, storage usage, \gls{pps} status and battery voltage.
 Earlier versions of the app alowed the user to configure parameters such as exposure and gain but we noticed that this took away focus so we swithed to automatic adjustment of these parameters.
+Having a simple interface makes it possible for almost anyone to use the sensor rig and adds to its usability.
+
 
 \subsection{Synchronization}
 Emphasis has been put on accurately synchronizing all sensors on the sensor rig to \gls{utc}.

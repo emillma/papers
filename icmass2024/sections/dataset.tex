@@ -7,17 +7,21 @@ The dataset contains the raw data from the cameras together with metadata for ea
 As we want to ensure quality before releasing calibration data, we currently provide a calibration sequence where we film a chess board while rotating the sensor rig, which can be used for calibration purposes.
 A representative selection of images from the dataset can be found at the end of the paper, where we show the $S0$ image on the left and the polarized image or unpolaraized image on the right.
 
-The dataset is available at \url{https://github.com/emillma/datasets}.
+The dataset is available at \url{https://github.com/emillma/sensor-rig-datasets}.
 
 \section{Conclusion and Future Work}
-In this paper we have presented a new portable sensor rig which makes collecting sensor data in maritime environments significantly easier.
-The platform is self-contained, and its ease of use has already allowed multiple researchers to use it for their data collection.
-With the two polarization cameras currently mounted on the sensor rig, we have collected several video sequences that strongly indicate the benefint of using color polarization cameras in the maritime domain.
+In this paper, we present a new portable sensor rig that significantly simplifies collecting sensor data in maritime environments.
+The platform is fully self-contained, and its ease of use has allowed multiple researchers to use it for data collection.
+We have also shown why polarization cameras could be beneficial in the maritime domain, as they reveal information about the scene, making the water surface more visible.
+The datasets collected with the sensor rig illustrate this and show its potential as a tool for collecting data for the development of autonomous surface vehicles.
 
-While we have synchronized the sensors, accurately estimating the extrinsic parameters remains to be done.
-We intend to continue collecting and share more data collected from the shore as well as moving vessels of different sizes, under different weather conditions and at different times of the day.
+We intend to use the sensor rig frequently to collect many maritime datasets, covering different weather and lighting conditions and capturing different scenes both from land and from moving vessels.
+With access to \gls{gnss} and \gls{imu} data from the sensor rig, we intend to mount similar sensors to moving vessels to collect datasets for detecting and tracking other vessels.
+While the sensors and components on the sensor rig are synchronized, the intrinsics and extrinsics of the sensors still need to be calibrated and validated.
 
-TODO add more future work and improve the conclusion.
+Our goal with the sensor rig is to be a leading provider of maritime datasets to the research community for the development of autonomous surface vehicles.
+
+
 
 
 

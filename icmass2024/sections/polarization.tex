@@ -1,6 +1,6 @@
 \section{Polarization Cameras in the Maritime Domain}
 Light behaves as a transverse wave, with its electromagnetic field oscillating in a plane perpendicular to the direction in which it travels.
-Similar to how color filters are used to separate different oscillation frequencies, i.e. colors, of light, polarization filters can be used to separate different oscillation directions, i.e. polarizations, of light.
+Similar to how color filters are used to separate different oscillation frequencies, i.e. colors, polarization filters can be used to separate different oscillation directions, i.e. polarizations of light.
 This gives us a new set of tools to analyze the scene, which is be particularly useful in the maritime domain where the water surface is a reflective surface with a distinct polarization signature.
 
 \begin{figure}[H]
@@ -34,8 +34,11 @@ Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\l
 \end{align}
 
 
+
+
+
 Inserting the refractive index of air, $n_1 = 1$, and the refractive index of water, $n_2 = 1.33$, the reflectance can be calculated and plotted as a function of the angle of incidence, $\theta_1$, alone as shown in Figure \ref{fig:brewster0}.
-The \gls{dolp} is the degree to which light is polarized and can be defined as the ratio between the difference and the sum of the two polarization components.
+The \gls{dolp} is the degree to which light is linearly polarized and can be defined as the ratio between the difference and the sum of the two polarization components.
 The \gls{dolp} is plotted in Figure \ref{fig:brewster1}.
 At one particular angle of incidence, $\theta_B$, known as the Brewser angle, $R_\parallel$ becomes zero, and the reflected light is completely s-polarized:
 \begin{align}
@@ -114,11 +117,12 @@ By aligning four linear polarizers at 45-degree intervals, the \glsfirst{dolp} a
     \end{minipage}%
     
     \caption{How four linear polarizers placed at $45^\circ$ intervals can be used to calculate the \gls{dolp} and \gls{aolp} of polarized light. \label{fig:polarization_calculation}}
-\end{figure}
+\end{figure}%
 
 \section{Polarization Cameras}
 The sensor rig is equipped with two TRI050S1-QC cameras from Lucid Vision Labs.
-The cameras use a 5MP \gls{cpfa} sensor from Sony, depicted in Figure \ref{fig:cpfa}, capabale of capturing both color and polarization information.
+The cameras use a 5MP \gls{cpfa} sensor from Sony capabale of capturing both color and polarization information. 
+In this sensor every pixel is equipped with a color filter and a polarization filter, as shown in Figure \ref{fig:cpfa}.
 
 \begin{figure}[H]
     \begin{subfigure}[B]{.48\textwidth}
@@ -132,29 +136,31 @@ The cameras use a 5MP \gls{cpfa} sensor from Sony, depicted in Figure \ref{fig:c
         \caption{Reordered view of \ref{fig:cpfa}. \label{fig:cpfa_reorder}}
     \end{subfigure}
     \caption{A 12\times12 slice of the \gls{cpfa} used in TRI050S1-QC cameras \cite{lucidvisionlabsTritonMPPolarized2020}, and how the the data can be reorderd as a 3\times3 image with 16 channels. \label{fig:polarization_sensor}}
-\end{figure}
+\end{figure}%
 
 % \subsection{A Simple Color-Polarization Demosaicking Approach}
+\pagebreak
 Similar to how debayering is used to estimate the missing color channels from a Bayer filter, color-polarization demosaicking is used to estimate the missing polarization channels from a \gls{cpfa} sensor.
-Several methods already exist for performing accurate color-polarization demosaicking \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}\cite{nguyenTwoStepColorPolarizationDemosaicking2022a}, but we propose a simple linear method that can be implemented with a single convolutional layer.
+With the physical displacement of the filters on the sensors its important to compensate for gradients in the scene to avoid aliasing artifacts.
+Several methods that solves this and perform accurate color-polarization demosaicking exists, but we propose a simple linear method that can be implemented with a single convolutional layer \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}\cite{nguyenTwoStepColorPolarizationDemosaicking2022a}.
 The method estimates $S0$, $S1$, and $S2$ for each color channel at every pixel, i.e. it transforms the $n \times m \times 1$ raw \gls{cpfa} image into a $n \times m \times 9$ image.
 
 First, the raw \gls{cpfa} input image is permuted into a $(n/4) \times (m/4) \times 16$ image, where the 16 channels correspond to the different color and polarization filters as depicted in Figure \ref{fig:cpfa_reorder}.
-This can be done by the following tensor operations:
+A custom CUDA kernel was written to unpack raw camera data and perform this permutation in one step, but the same result can be achieved with the following tensor operations using a library like PyTorch:
 \begin{figure}[H]
     \centering
     \includegraphics[width=.6\textwidth]{figures/transformation.pdf}
     \caption{Permutations from a $n \times m \times C $ tensor to a $(n/4) \times (m/4) \times (C\times 16)$ tensor. \label{fig:reorder_operations}}
     
 \end{figure}%
-A custom CUDA kernel was written to unpack raw camera data and perform this permutation in one step, but the same result can be achieved with a series of reshape and transpose operations in PyTorch.
-Then a single convolutional layer is applied to obtain a $(n/4)*(m/4)*144$ image.
-Finally, the image is permuted back to a $n \times m \times 9$ image by reversing the operations in Figure \ref{fig:reorder_operations}.
 
-With a kernel size of 5, the convolutional layer has $144\times16\times5\times5=57600$ weights.
-Since we only use a single convolution operation, the transformation is linear, and we can find the least square solution directly without the use of gradient descent.
+Then, a single convolutional layer is applied to obtain a $(n/4)*(m/4)*144$ image.
+Finally, the image is permuted back to a $n \times m \times 9$ image by reversing the operations in Figure \ref{fig:reorder_operations}.
+With a kernel size of 5, the convolutional layer has only $144\times16\times5\times5=57600$ weights.
+since we only use a single convolution operation, the transformation is linear, and we can find the least square solution directly without the use of gradient descent.
 The weights were fitted to the Tokyo Tech dataset, a 12-channel (3 colors \times 4 angles) color-polarization image dataset with 40 scenes \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}.
 To simulate raw \gls{cpfa} images, we select the channel for each pixel with the same color and polarization angle as the corresponding pixel in the \gls{cpfa} image.
+Figure \ref{fig:cpfa_demosaicking} shows how this method is used to obtain and visualize the polarization information from a \gls{cpfa} image.
 
 To increase the size of the dataset, we used all 16 possible placements of the virtual \gls{cpfa} on each image by shifting the images up to 3 pixels in each direction.
 We also augmented the dataset by flipping the images horizontally and vertically.
@@ -162,31 +168,30 @@ We also augmented the dataset by flipping the images horizontally and vertically
 
 \begin{figure}[H]
     \begin{subfigure}[T]{.49\textwidth}
-        \includegraphics[width=\textwidth]{figures/img_0080_right_s0.jpg}
-        \caption{$S_0$, equivalent to what a normal camera would capture.}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[T]{.49\textwidth}
         \includegraphics[width=\textwidth]{figures/img_0080_right_inten.jpg}
         \caption{$I90$, $I45$, $I135$, and $I0$.}
     \end{subfigure}
-    
+    \hfill
+    \begin{subfigure}[T]{.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/img_0080_right_s0.jpg}
+        \caption{$S_0$, equivalent to what a normal camera would capture.}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]\ContinuedFloat
     \begin{subfigure}[B]{.49\textwidth}
         \includegraphics[width=\textwidth]{figures/img_0080_right_pol.jpg}
-        \caption{Visualization of \gls{dolp} and \gls{aolp}}
+        \caption{Visualization of \gls{dolp} and \gls{aolp} for luminance. Similar visualizations can be made for each separate color channel.}
     \end{subfigure}
     \hfill
     \begin{subfigure}[B]{.49\textwidth}
         \centering
         \includegraphics[width=.8\textwidth]{figures/cmap/aolp_dolp_cmap.pdf}
         \vspace{1em}
-        \caption{Colormap}
+        \caption{Colormap used to visualize \gls{dolp} and \gls{aolp}. Using a colormap with constant luminance, rather than HSV, makes it easier to visually determine \gls{dolp}. }
     \end{subfigure}
-    \caption{Visualization of an image captured with a color polarization filter array sensor. Note how the polarization information facilitates detection of the small unmanned vessel.}
+    \caption{An image captured with a color polarization filter array sensor and visualization of its polarization information. \label{fig:cpfa_demosaicking}}
 \end{figure}
-
-
-
 
 % \hfill
 

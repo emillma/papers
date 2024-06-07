@@ -4,22 +4,22 @@
     High-quality data sets from relevant maritime environments are needed to advance the development of \gls{sitaw}, as it is both the backbone of any learning-based method and the development and validation of classical methods.
     Research vessels such as the full-scale ferry \textit{milliAmpere2} provide such data, but there tends to be a considerable labor cost associated with their operation.
     With this in mind, we have developed a portable sensor rig that makes collecting sensor data significantly easier.
-
+    
     The sensor rig is designed for easy transport and operation by a single individual but can also temporarily attach an existing vessel, making it versatile for a wide range of data collection scenarios.
     The sensor rig is equipped with a Jetson Orin AGX computer, two dual-band GNSS receivers, a high-quality IMU, and two color polarization cameras.
     Accurate synchronization of all sensors and the computer to \gls{utc} is achieved using a microcontroller for triggering and a custom PPS-enabled Linux kernel for the Jetson.
     The sensor rig is controlled and monitored by connecting a smartphone to its hosted web app, which provides a live stream from the cameras and information about the sensors.
-
+    
     We present a new data set from the river Nidelva in Trondheim, Norway, to demonstrate the sensor rig's potential and the benefit of color polarization cameras in the maritime domain.
     We show how the data from color polarization cameras can be used directly to make the water surface more visibly distinct and remove reflections and sun glare.
     This new data set consists of synchronized stereo color polarization video, raw IMU data, and raw GNSS data, and it will be made publically available to the research community at the conference.
-
+    
 \end{abstract}
 
 \pagebreak
 
 \section{Introduction}
-\glspl{asv} have received attention in recent years and several vessels have been built for research, such as \textit{Milliampere}, \textit{Milliampere 2}, and \textit{Maverick} \cite{brekkeMilliAmpereAutonomousFerry2022}\cite{zhangDesignBuildAutonomous2023}\cite{eideAutonomousUrbanPassenger2024}.
+\glspl{asv} have received attention in recent years and several vessels have been built for research, such as \textit{Milliampere}, \textit{Milliampere 2}, and \textit{Maverick} \cite{brekkeMilliAmpereAutonomousFerry2022}\cite{zhangDesignBuildAutonomous2023}\cite{eideAutonomousUrbanPassengerInReview}.
 To operate autonomously, these vehicles are all equipped with multiple sensors to perceive their environment, achieve \gls{sitaw} and make informed decisions.
 The choice of sensors plays a crucial role in the design, development and operation of \glspl{asv} and there is a wide range of types and models to pick from on the market \cite{thombreSensorsAITechniques2022}.
 To make informed decisions about what sensors to use and advance the development of \glspl{asv} it is therefore important to have access to data collected from various combinations of sensors in relevant maritime environments.

@@ -1,8 +1,9 @@
+
+
 \section{Polarization Cameras in the Maritime Domain}
 Light behaves as a transverse wave, with its electromagnetic field oscillating in a plane perpendicular to the direction in which it travels.
 Similar to how color filters are used to separate different oscillation frequencies, i.e. colors, polarization filters can be used to separate different oscillation directions, i.e. polarizations of light.
 This gives us a new set of tools to analyze the scene, which is particularly useful in the maritime domain where the water surface is a reflective surface with a distinct polarization signature.
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\linewidth]{figures/polarization/reflaction.png}
@@ -10,7 +11,6 @@ This gives us a new set of tools to analyze the scene, which is particularly use
         \cite[Figure 1.38]{lingUniversityPhysicsVolume2016}}
     \label{fig:polarized_reflection}
 \end{figure}
-
 \subsection{Polarization Properties of Reflected Light}
 When light reflects off a surface, its polarization changes \cite[34]{lingUniversityPhysicsVolume2016}.
 This effect is illustrated in Figure \ref{fig:polarized_reflection} where the unpolarized light reflected off a surface becomes partially polarized.
@@ -48,7 +48,7 @@ At one particular angle of incidence, $\theta_B$, known as the Brewster angle, $
         \includegraphics[width=\textwidth]{figures/pol_plots/brewster0.pdf}
         \caption{Reflectance of S and P polarized light of water.}
         \label{fig:brewster0}
-    \end{subfigure}
+    \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/pol_plots/brewster1.pdf}
@@ -59,9 +59,6 @@ At one particular angle of incidence, $\theta_B$, known as the Brewster angle, $
         The Brewster angle is marked with a vertical line.}
     \label{fig:test}
 \end{figure}
-
-
-
 
 \subsection{Estimating Polarization Properties of Light using Polarizers}
 In polarized light, the electromagnetic oscillations trace an elliptical path, which simplifies to a circular or straight line for pure circular or linear polarization, respectively.
@@ -119,7 +116,6 @@ By aligning four linear polarizers at 45-degree intervals, the \glsfirst{dolp} a
 The sensor rig is equipped with two TRI050S1-QC cameras from Lucid Vision Labs.
 The cameras use a 5MP \gls{cpfa} sensor from Sony capable of capturing both color and polarization information. 
 In this sensor, every pixel is equipped with a color filter and a polarization filter, as shown in Figure \ref{fig:cpfa}.
-
 \begin{figure}[H]
     \begin{subfigure}[B]{.48\textwidth}
         \centering
@@ -131,16 +127,17 @@ In this sensor, every pixel is equipped with a color filter and a polarization f
         \includegraphics[width=\textwidth]{figures/sensor_packaging.pdf}
         \caption{Reordered view of \ref{fig:cpfa}. \label{fig:cpfa_reorder}}
     \end{subfigure}
-    \caption{A 12\times12 slice of the \gls{cpfa} used in TRI050S1-QC cameras \cite{lucidvisionlabsTritonMPPolarized2020}, and how the the data can be reorderd as a 3\times3 image with 16 channels. \label{fig:polarization_sensor}}
+    \caption{A $12\times12$ slice of the \gls{cpfa} used in TRI050S1-QC cameras \cite{lucidvisionlabsTritonMPPolarized2020}, and how the the data can be reorderd as a $3\times3$ image with 16 channels. \label{fig:polarization_sensor}}
 \end{figure}%
 
-% \subsection{A Simple Color-Polarization Demosaicking Approach}
-\pagebreak
+\subsection{Color-Polarization Demosaicking}
 Similar to how debayering is used to estimate the missing color channels from a Bayer filter, color-polarization demosaicking is used to estimate the missing polarization channels from a \gls{cpfa} sensor.
 Due to the physical displacement of the filters on the sensors, it's important to compensate for gradients in the scene to avoid aliasing artifacts.
 Several methods that solve this and perform accurate color-polarization demosaicking exist \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}\cite{nguyenTwoStepColorPolarizationDemosaicking2022a}.
 Still, we propose a simple linear method that can be implemented with a single convolutional layer.
 The method estimates $S0$, $S1$, and $S2$ for each color channel at every pixel, i.e. it transforms the $n \times m \times 1$ raw \gls{cpfa} image into a $n \times m \times 9$ image.
+
+
 
 First, the raw \gls{cpfa} input image is permuted into a $(n/4) \times (m/4) \times 16$ image, where the 16 channels correspond to the different color and polarization filters as depicted in Figure \ref{fig:cpfa_reorder}.
 A custom CUDA kernel was written to unpack raw camera data and perform this permutation in one step, but the same result can be achieved with the following tensor operations using a library like PyTorch:
@@ -152,10 +149,10 @@ A custom CUDA kernel was written to unpack raw camera data and perform this perm
 \end{figure}%
 
 Then, a single convolutional layer is applied to obtain a $(n/4)*(m/4)*144$ image.
-Finally, the image is permuted back to a $n \times m \times 9$ image by reversing the operations in Figure \ref{fig:reorder_operations}.
+Finally, the resulting image is permuted back to a $n \times m \times 9$ image by reversing the operations in Figure \ref{fig:reorder_operations}.
 With kernel size 5, the convolutional layer has only $144\times16\times5\times5=57600$ weights.
 Since we only use a single convolution operation, the transformation is linear, and we can find the least square solution directly without using gradient descent.
-The weights were fitted to the Tokyo Tech dataset, a 12-channel (3 colors \times 4 angles) color-polarization image dataset with 40 scenes \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}.
+The weights were fitted to the Tokyo Tech dataset, a 12-channel (3 colors $\times$ 4 angles) color-polarization image dataset with 40 scenes \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}.
 To simulate raw \gls{cpfa} images, we select the channel for each pixel with the same color and polarization angle as the corresponding pixel in the \gls{cpfa} image.
 Figure \ref{fig:cpfa_demosaicking} shows how this method is used to obtain and visualize the polarization information from a \gls{cpfa} image.
 

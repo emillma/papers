@@ -23,7 +23,7 @@ These two components are referred to as s-polarized and p-polarized light, respe
     R_\parallel = & \left|{\frac {n_{1}\cos \theta _2-n_{2}\cos \theta _1}{n_{1}\cos \theta _2+n_{2}\cos \theta _1}}\right|^{2}
 \end{align}
 
-Where $\eta_1$ and $\eta_2$ are the refractive indices of the two media,
+where $\eta_1$ and $\eta_2$ are the refractive indices of the two media,
 $\theta_i$ is the angle of incidence and $\theta_r$ is the angle of refraction.
 Using the trigonometric identity $ \cos^2{\left(\theta_2 \right)} = 1- \sin^2{\left(\theta_2 \right)}$ and Snell's law $\eta_1 \sin{\left(\theta_1 \right)} = \eta_2 \sin{\left(\theta_2 \right)}$ the angle of refraction, $\theta_2$ can be removed, and the equations can be rewritten as:
 
@@ -38,7 +38,7 @@ Inserting the refractive index of air, $n_1 = 1$, and the refractive index of wa
 The \gls{dolp} is the degree to which light is linearly polarized and can be defined as the ratio between the difference and the sum of the two polarization components and is plotted in Figure \ref{fig:dolp_graph}.
 At one particular angle of incidence, $\theta_B$, known as the Brewster angle, $R_\parallel$ becomes zero, and the reflected light is completely s-polarized:
 \begin{align}
-    DoLP= & \frac{\left | R_\perp - R_\parallel \right |}{R_\perp + R_\parallel} & \theta_B & = \arctan{\frac{n_2}{n_1}} 
+    DoLP= & \frac{\left | R_\perp - R_\parallel \right |}{R_\perp + R_\parallel} & \theta_B & = \arctan{\frac{n_2}{n_1}}
 \end{align}
 
 \begin{figure}[H]
@@ -133,11 +133,10 @@ In this sensor, every pixel is equipped with a color filter and a polarization f
 \subsection{Color-Polarization Demosaicking}
 Similar to how debayering is used to estimate the missing color channels from a Bayer filter, color-polarization demosaicking is used to estimate the missing polarization channels from a \gls{cpfa} sensor.
 Due to the physical displacement of the filters on the sensors, it's important to compensate for gradients in the scene to avoid aliasing artifacts.
-Several methods that solve this and perform accurate color-polarization demosaicking exist \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}\cite{nguyenTwoStepColorPolarizationDemosaicking2022a}.
-Still, we propose a simple linear method that can be implemented with a single convolutional layer.
+Several methods that solve this and perform accurate color-polarization demosaicking exist \cite{morimatsuMonochromeColorPolarization2020,morimatsuMonochromeColorPolarization2021,nguyenTwoStepColorPolarizationDemosaicking2022a}.
+Still, for simplicity, we propose a linear method we implemented using a single convolutional layer on the GPU.
+This method is simple, fast and yields images with few aliasing artifacts.
 The method estimates $S0$, $S1$, and $S2$ for each color channel at every pixel, i.e. it transforms the $n \times m \times 1$ raw \gls{cpfa} image into a $n \times m \times 9$ image.
-
-
 
 First, the raw \gls{cpfa} input image is permuted into a $(n/4) \times (m/4) \times 16$ image, where the 16 channels correspond to the different color and polarization filters as depicted in Figure \ref{fig:cpfa_reorder}.
 A custom CUDA kernel was written to unpack raw camera data and perform this permutation in one step, but the same result can be achieved with the following tensor operations using a library like PyTorch:
@@ -152,7 +151,7 @@ Then, a single convolutional layer is applied to obtain a $(n/4)*(m/4)*144$ imag
 Finally, the resulting image is permuted back to a $n \times m \times 9$ image by reversing the operations in Figure \ref{fig:reorder_operations}.
 With kernel size 5, the convolutional layer has only $144\times16\times5\times5=57600$ weights.
 Since we only use a single convolution operation, the transformation is linear, and we can find the least square solution directly without using gradient descent.
-The weights were fitted to the Tokyo Tech dataset, a 12-channel (3 colors $\times$ 4 angles) color-polarization image dataset with 40 scenes \cite{morimatsuMonochromeColorPolarization2020}\cite{morimatsuMonochromeColorPolarization2021}.
+The weights were fitted to the Tokyo Tech dataset, a 12-channel (3 colors $\times$ 4 angles) color-polarization image dataset with 40 scenes \cite{morimatsuMonochromeColorPolarization2020,morimatsuMonochromeColorPolarization2021}.
 To simulate raw \gls{cpfa} images, we select the channel for each pixel with the same color and polarization angle as the corresponding pixel in the \gls{cpfa} image.
 Figure \ref{fig:cpfa_demosaicking} shows how this method is used to obtain and visualize the polarization information from a \gls{cpfa} image.
 

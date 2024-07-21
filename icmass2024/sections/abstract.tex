@@ -8,7 +8,7 @@
     The sensor rig is designed for easy transport and operation by a single individual. 
     It can also be temporarily attached to an existing vessel, making it versatile for a wide range of data collection scenarios.
     The sensor rig is equipped with a Jetson Orin AGX computer, two dual-band GNSS receivers, a high-quality IMU, and two color polarization cameras.
-    Accurate synchronization of all sensors and the computer to \gls{utc} is achieved using a microcontroller for triggering and a custom PPS-enabled Linux kernel on the Jetson.
+    Accurate synchronization of all sensors and the computer to \gls{utc} is achieved using a microcontroller for triggering and a custom \gls{pps}-enabled Linux kernel on the Jetson.
     The sensor rig is controlled and monitored by connecting a smartphone to its hosted web app, which provides a live stream from the cameras and information about the sensors.
     
     We present a new dataset from the river Nidelva in Trondheim, Norway, to demonstrate the sensor rig's potential and the benefit of color polarization cameras in the maritime domain.
@@ -20,7 +20,7 @@
 \pagebreak
 
 \section{Introduction}
-\glspl{asv} have received attention in recent years and several vessels have been built for research, such as \textit{Milliampere}, \textit{Milliampere 2}, and \textit{Maverick} \cite{brekkeMilliAmpereAutonomousFerry2022}\cite{zhangDesignBuildAutonomous2023}\cite{eideAutonomousUrbanPassenger2024}.
+\glspl{asv} have received attention in recent years and several vessels have been built for research, such as \textit{Milliampere}, \textit{Milliampere 2}, and \textit{Maverick} \cite{brekkeMilliAmpereAutonomousFerry2022,zhangDesignBuildAutonomous2023,eideAutonomousUrbanPassengerInReview}.
 To operate autonomously, these vehicles are all equipped with multiple sensors to perceive their environment, achieve \gls{sitaw}, and make informed decisions.
 The choice of sensors plays a crucial role in the design, development, and operation of \glspl{asv}, and there is a wide range of types and models to pick from on the market \cite{thombreSensorsAITechniques2022}.
 To make informed decisions about what sensors to use and advance the development of \glspl{asv}, it is therefore important to have access to data collected from various combinations of sensors in relevant maritime environments.
@@ -31,7 +31,7 @@ Varying the types and placement of sensors on the vessels and calibrating them i
 To make this easier, we have designed and developed a lightweight sensor rig to be carried and operated by a single person or temporarily attached to an existing vessel \cite{martensPavingWayEnhanced2023}.
 It is not intended as a replacement for research vessels but rather as a complement for any research group working on \gls{sitaw} for \glspl{asv} to augment the data collection capabilities.
 With the development of the sensor rig, we decided to use the opportunity to explore the potential of color polarization cameras in the maritime domain, which were not mentioned in the otherwise comprehensive review of sensors for \gls{sitaw} by Thombre et al. \cite{thombreSensorsAITechniques2022}.
-Research on the use of polarization cameras in the maritime domain for target recognition and image dehazing has been published \cite{zhongPolarizationintensityJointImaging2023}\cite{maPolarizationBasedMethodMaritime2024}, but compared to other sensor systems, the use of polarization cameras in the maritime domain, especially color polarization cameras, appears relatively unexplored.
+Research on the use of polarization cameras in the maritime domain for target recognition and image dehazing has been published \cite{zhongPolarizationintensityJointImaging2023,maPolarizationBasedMethodMaritime2024}, but compared to other sensor systems, the use of polarization cameras in the maritime domain, especially color polarization cameras, appears relatively unexplored.
 
 In this paper, we present the theory behind why polarization cameras are useful in the maritime domain, present the design and current configuration of the sensor rig, and present a novel dataset collected with the sensor rig to demonstrate its potential and the benefits of color polarization cameras in the maritime domain.
 

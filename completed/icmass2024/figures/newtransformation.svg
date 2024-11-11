@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_4" data-name="Layer 4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 342 126">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3, .cls-4 {
+        font-family: TimesNewRomanPS-BoldMT, 'Times New Roman';
+        font-weight: 700;
+      }
+
+      .cls-3, .cls-4, .cls-5 {
+        font-size: 13px;
+      }
+
+      .cls-4 {
+        fill: #221f1f;
+      }
+
+      .cls-6 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-5 {
+        font-family: TimesNewRomanPS-ItalicMT, 'Times New Roman';
+        font-style: italic;
+      }
+    </style>
+  </defs>
+  <text class="cls-3" transform="translate(103.31 13.31)"><tspan x="0" y="0">N</tspan></text>
+  <text class="cls-3" transform="translate(209.87 13.31)"><tspan x="0" y="0">M</tspan></text>
+  <text class="cls-3" transform="translate(98.25 49.31)"><tspan x="0" y="0">N/4</tspan></text>
+  <text class="cls-5" transform="translate(7.99 49.55)"><tspan x="0" y="0">Change shape</tspan></text>
+  <text class="cls-5" transform="translate(10.77 85.55)"><tspan x="0" y="0">Reo</tspan><tspan class="cls-6" x="20.21" y="0">r</tspan><tspan x="24.79" y="0">der axes</tspan></text>
+  <text class="cls-5" transform="translate(7.27 121.55)"><tspan x="0" y="0">Change Shape</tspan></text>
+  <text class="cls-3" transform="translate(98.25 85.31)"><tspan x="0" y="0">N/4</tspan></text>
+  <text class="cls-3" transform="translate(204.81 49.31)"><tspan x="0" y="0">M/4</tspan></text>
+  <text class="cls-3" transform="translate(132.81 85.31)"><tspan x="0" y="0">M/4</tspan></text>
+  <text class="cls-4" transform="translate(140.75 49.31)"><tspan x="0" y="0">2</tspan></text>
+  <text class="cls-4" transform="translate(176.75 85.31)"><tspan x="0" y="0">2</tspan></text>
+  <text class="cls-4" transform="translate(176.75 49.31)"><tspan x="0" y="0">2</tspan></text>
+  <text class="cls-4" transform="translate(248.75 85.31)"><tspan x="0" y="0">2</tspan></text>
+  <text class="cls-4" transform="translate(248.75 49.31)"><tspan x="0" y="0">2</tspan></text>
+  <text class="cls-4" transform="translate(212.75 85.31)"><tspan x="0" y="0">2</tspan></text>
+  <text class="cls-4" transform="translate(284.75 49.31)"><tspan x="0" y="0">2</tspan></text>
+  <text class="cls-4" transform="translate(284.75 85.31)"><tspan x="0" y="0">2</tspan></text>
+  <text class="cls-3" transform="translate(98.25 121.31)"><tspan x="0" y="0">N/4</tspan></text>
+  <text class="cls-3" transform="translate(132.81 121.31)"><tspan x="0" y="0">M/4</tspan></text>
+  <text class="cls-4" transform="translate(227.5 121.31)"><tspan x="0" y="0">16</tspan></text>
+  <path class="cls-1" d="M144,54c0,9,36,9,36,18"/>
+  <path class="cls-1" d="M180,54c0,9,72,9,72,18"/>
+  <path class="cls-1" d="M252,54c0,9-36,9-36,18"/>
+  <path class="cls-1" d="M288,54v18"/>
+  <path class="cls-1" d="M108,54v18"/>
+  <path class="cls-1" d="M216,54c0,9-72,9-72,18"/>
+  <path class="cls-1" d="M144,90v18"/>
+  <path class="cls-1" d="M180,90c0,9,54,9,54,18"/>
+  <path class="cls-1" d="M252,90c0,9-18,9-18,18"/>
+  <path class="cls-1" d="M288,90c0,9-54,9-54,18"/>
+  <path class="cls-1" d="M108,90v18"/>
+  <path class="cls-1" d="M216,90c0,9,18,9,18,18"/>
+  <path class="cls-1" d="M108,18v18"/>
+  <path class="cls-1" d="M180,36c0-19.22-72-9-72-18"/>
+  <path class="cls-1" d="M144,36c0-11.25-36-9-36-18"/>
+  <path class="cls-1" d="M216,18v18"/>
+  <path class="cls-1" d="M252,36c0-9-36-9-36-18"/>
+  <path class="cls-1" d="M288,36c0-9-72-9-72-18"/>
+  <line class="cls-2" x1="90" x2="90" y2="126"/>
+</svg>

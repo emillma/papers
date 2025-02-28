@@ -1,0 +1,39 @@
+% \makeglossaries
+
+\setabbreviationstyle[acronym]{long-postshort-user}
+\glssetcategoryattribute{acronym}{nohyperfirst}{true}
+\setabbreviationstyle{short-nolong}
+
+% --------------------
+% ---- Glossaries ----
+% --------------------
+\newglossaryentry{asyncio}{name=Asyncio, description={A Python library for asynchronous code.}}
+\newglossaryentry{cuda}{name=CUDA, description={A Python library for asynchronous code.}}
+\newglossaryentry{symengine}{name=SymEngine, description={A Python library for asynchronous code.}}
+\newglossaryentry{sympy}{name=SymPy, description={A Python library for asynchronous code.}}
+
+% --------------------
+% ----- Acronyms -----
+% --------------------
+\newacronym{asv}{ASV}{Autonomous Surface Vehicle}
+\newacronym{dolp}{DoLP}{Degree of Linear Polarization}
+\newacronym{aolp}{AoLP}{Angle of Linear Polarization}
+\newacronym{sitaw}{SITAW}{Situational Awareness}
+\newacronym{poe}{PoE}{Power over Ethernet}
+\newacronym{pps}{PPS}{Pulse Per Second}
+\newacronym{pcgnr}{PCGNR}{Preconditioned Conjugate Gradient with Normal Residual}
+
+\glsaddall
+\makeglossaries
+
+\newcommand{\cuda}{\gls{cuda}\xspace}
+\newcommand{\caspar}{Caspar\xspace}
+
+% \glsunset{cpu}
+% \glsunset{gpu}
+% \glsunset{lla}
+
+% --------------------
+% ----- Shortcuts ----
+% --------------------
+

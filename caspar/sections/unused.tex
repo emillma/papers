@@ -1,0 +1,63 @@
+\subsection{Expression Mapping}
+A key part on sympolic computing is common subexpression elimination.
+Consider the following example expression:
+\begin{align}
+     & \mathbf{x} = \begin{bmatrix}x_0 \\ x_1\end{bmatrix}  \\
+     & \mathbf{y} =  \begin{bmatrix}y_0 \\ y_1\end{bmatrix}
+    =\frac{\begin{bmatrix}\sin(x_0) & \sin(x_0)+x_1^2\end{bmatrix}}{\left\Vert \mathbf{x} \right\Vert}^T
+    =  \begin{bmatrix}
+           \nicefrac{\sin x_0}{\sqrt{x_0^2+x_1^2}} \\
+           \nicefrac{\sin x_0+x_1^1}{\sqrt{x_0^2+x_1^2}}
+       \end{bmatrix}
+\end{align}
+Writing out the full expression for each output element would result in redundant calculations.
+By using common subexpression elimination, we store the intermediate results in temporary variables and reuse them when needed.
+
+\begin{align*}
+    r_0 = & \sin x_0            &  & = \sin x_0                                     \\
+    r_1 = & x_1^2               &  & =x_1^2                                         \\
+    r_2 = & r_0+r_1             &  & =\sin x_0+x_1^2                                \\
+    r_3 = & x_0^2               &  & =x_0^2                                         \\
+    r_4 = & r_1+r_3             &  & =x_0^2+x_1^2                                   \\
+    r_5 = & \sqrt{r_4}          &  & =\sqrt{x_0^2+x_1^2}                            \\
+    y_0 = & \nicefrac{r_0}{r_5} &  & =\nicefrac{\sin x_0}{\sqrt{x_0^2+x_1^2}}       \\
+    y_1 = & \nicefrac{r_2}{r_5} &  & =\nicefrac{\sin x_0+x_1^2}{\sqrt{x_0^2+x_1^2}} \\
+\end{align*}
+
+
+In order to get better performance out of the GPU, we need to be aware of memory access patterns.
+While using the data stored in $x$ directly would work, every time we access the data, we would have to fetch it from global memory.
+\footnote{L2 cache partially solves this but is still slower than L1.}
+To avoid this, we can store the data in registers as illustrated in (\ref{store_a}) and (\ref{store_b}).
+When working on the GPU we can take advantage of special functions that are optimized for the GPU, such as \texttt{rnorm2d} and \texttt{fma}.
+
+\begin{align}
+    r_0 = & x_0                   \label{store_a}                                                      \\
+    r_1 = & x_1                   \label{store_b}                                                      \\
+    r_2 = & \sin r_0                              &  & = \sin x_0                                      \\
+    r_3 = & fma(r_1, r_1, r_2)                    &  & =\sin x_0+x_1^2                                 \\
+    r_0 = & rnorm2d(r_0, r_1)                     &  & =\nicefrac{1}{\sqrt{x_0^2+x_1^2}}               \\
+    r_1 = & r_2*r_0                               &  & =\nicefrac{\sin x_0}{\sqrt{x_0^2+x_1^2}}        \\
+    r_0 = & r_3*r_0                               &  & =\nicefrac{\sin x_0+x_1^2}{\sqrt{x_0^2+x_1^2}}  \\
+    y_0 = & r_1                                   &  & = \nicefrac{\sin x_0}{\sqrt{x_0^2+x_1^2}}       \\
+    y_1 = & r_0                                   &  & = \nicefrac{\sin x_0+x_1^2}{\sqrt{x_0^2+x_1^2}} \\
+\end{align}
+
+\subsection{Expression Ordering}
+Each thread on the GPU has a finite set of 32-bit registers available.
+If a kernel need more registers than whats available, local memory is used.
+Ther is called register spilling an has a negative on performance, as local memory is as slow as global memory.
+To minimize the amount of register spilling we want to find an optimal expression ordering.
+This problem is called the bandwidth minimization problem and is NP-hard.
+
+\begin{align*}
+    r_0 = & x_0                                                                    \\
+    r_1 = & \sin r_0           &  & = \sin x_0                                     \\
+    r_2 = & x_1                                                                    \\
+    r_0 = & rnorm2d(r_0, r_1)  &  & =\nicefrac{1}{\sqrt{x_0^2+x_1^2}}              \\
+    r_2 = & fma(r_2, r_2, r_1) &  & =\sin x_0+x_1^2                                \\
+    r_1 = & r_1*r_0            &  & =\nicefrac{\sin x_0}{\sqrt{x_0^2+x_1^2}}       \\
+    y_0 = & r_1                &  & = \nicefrac{\sin x_0}{\sqrt{x_0^2+x_1^2}}      \\
+    r_0 = & r_2*r_0            &  & =\nicefrac{\sin x_0+2x_1}{\sqrt{x_0^2+x_1^2}}  \\
+    y_1 = & r_0                &  & = \nicefrac{\sin x_0+2x_1}{\sqrt{x_0^2+x_1^2}} \\
+\end{align*}

@@ -1,0 +1,57 @@
+\documentclass{iopconfser}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[automake]{glossaries-extra}
+\usepackage{ragged2e}
+\usepackage[export]{adjustbox}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{dirtytalk}
+
+\onehalfspacing
+\input{glossary.tex}
+\addbibresource{mylib.bib}
+
+
+\begin{document}
+\title{CASPAR: A CUDA Accelerator for Symbolic Programming with Adaptive Reordering}
+\author{Emil Martens}
+
+Mores law dead
+Tradeoff between performance and complexity
+Parallel computing and new algorithms
+Symbolic computing offer new approach to computing.
+One area is nonlinear optimization
+
+\section{Introduction}
+
+With Moore's law coming to an end, the industry has shifted its focus from increasing the clock speed of processors to increasing the number of cores.
+GPUs are a prime example of this, with the number of cores increasing exponentially over the last decade.
+New programming paradigms have emerged to take advantage of this, such as CUDA and OpenCL.
+These paradigms allow for the programmer to write code that can be executed in parallel on the GPU, but it adds a layer of complexity to the programming process.
+Application specific libraries have been developed to solve common problems, such as CuBlas for linear algebra, and higher order frameworks have been developed to abstract the complexity of GPU programming, such as PyTorch for machine learning.
+
+
+\input{sections/background.tex}
+\input{sections/symbolic_computing.tex}
+\input{sections/memory_optimizations.tex}
+\input{sections/solver.tex}
+\input{sections/results.tex}
+
+\section{Future Work}
+
+\subsection{Improve Reordering Algorithm}
+Currently performing only one greedy search. 
+New method based on transactions?
+
+\subsection{Incremental Solver}
+Isn't freezing nodes faster?
+
+\subsection{Constraint Handling}
+
+
+
+\printbibliography
+
+\end{document}

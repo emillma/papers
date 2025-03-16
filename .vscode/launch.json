@@ -11,6 +11,14 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "Python: Run",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "caspar/perf/run.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
         }
     ]
 }

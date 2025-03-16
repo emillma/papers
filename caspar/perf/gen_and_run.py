@@ -59,8 +59,8 @@ def fac_reprojection(
 
 
 out_dir = Path(__file__).resolve().parent / "generated"
-caslib.generate(out_dir)
-caslib.compile(out_dir)
+# caslib.generate(out_dir)
+# caslib.compile(out_dir)
 
 # Can also be imported using: lib = caslib.import_lib(out_dir)
 from generated import caspar_lib as lib  # type: ignore[import-not-found]
@@ -69,9 +69,9 @@ cam_ids, point_ids, camdata, pointdata, pixels = load_bal(sys.argv[1])
 
 params = lib.SolverParams()
 params.diag_init = 1.0
-params.solver_iter_max = 100
-params.pcg_iter_max = 10
-params.pcg_rel_error_exit = 1e-2
+params.solver_iter_max = 200
+params.pcg_iter_max = int(sys.argv[2])
+params.pcg_rel_error_exit = float(sys.argv[3])
 
 solver = lib.GraphSolver(
     params,
